@@ -20,7 +20,7 @@ namespace WindowsService1{
             Stopwatch stopWatch = new Stopwatch();  //we'll start by starting a new stopwatch
             stopWatch.Start();                      //tracking the user's time logged in shall commence     
 
-            sampleFileCreation(); //I'm following a tutorial
+            sampleFileCreation();                   //I'm following a tutorial
         }
 
         private void sampleFileCreation(){
