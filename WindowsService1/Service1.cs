@@ -14,6 +14,13 @@ namespace WindowsService1{
 
         public Service1(){
             InitializeComponent();
+            InitializeScheduler();
+        }
+
+        private void InitializeScheduler()
+        {
+            Scheduler osheduler = new Scheduler();
+            osheduler.Start();
         }
 
         protected override void OnStart(string[] args){

@@ -15,5 +15,30 @@ namespace WindowsService1
         {
             InitializeComponent();
         }
+
+        public override void commit(IDictionary savedState)
+        {
+            base.Commit(savedState);
+        }
+
+        public override void Install(IDictionary stateSaver)
+        {
+            base.Install(stateSaver);
+        }
+
+        public override void Rollback(IDictionary savedState)
+        {
+            base.Commit(savedState);
+        }
+
+        public override void Uninstall(IDictionary savedState)
+        {
+            base.Uninstall(savedState);
+        }
+
+        private void serviceInstaller1_AfterInstall(object sender, InstallEventArgs e)
+        {
+
+        }
     }
 }
