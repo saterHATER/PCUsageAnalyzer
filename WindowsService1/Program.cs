@@ -14,18 +14,18 @@ namespace WindowsService1
         /// </summary>
         static void Main()
         {
-#if DEBUG                                           //this is all modified, delete me if this doesn't work
+#if DEBUG
             Service1 myService = new Service1();
             myService.OnDebug();
             System.Threading.Thread.Sleep(System.Threading.Timeout.Infinite);
-#else                                               //within this statement is auto-generated code, let this stuff be.
+#else
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[] 
             { 
                 new Service1() 
             };
             ServiceBase.Run(ServicesToRun);
-#endif                                              //cannon  fodder
+#endif
         }
     }
 }

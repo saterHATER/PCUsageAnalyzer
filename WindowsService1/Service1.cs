@@ -8,6 +8,7 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace WindowsService1
 {
 
@@ -34,7 +35,7 @@ namespace WindowsService1
         protected override void OnStart(string[] args)
         {
             Stopwatch stopWatch = new Stopwatch();  //This allows me to have regular routined function calls
-            stopWatch.Start();                      //initialization
+            stopWatch.Start();                      //initialization 
 
             sampleFileCreation();                   //I'm following a tutorial, this may be of import later.
         }
@@ -49,8 +50,6 @@ namespace WindowsService1
             fileWriter.Close();
 
         }
-
-
 
         protected override void OnStop(){
 

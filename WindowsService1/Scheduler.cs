@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;   //new class?
 
 namespace WindowsService1
 {
@@ -26,6 +27,7 @@ namespace WindowsService1
         public void oTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             FileCreation();
+            cacheProcesses();
         }
 
         void FileCreation()
@@ -36,6 +38,20 @@ namespace WindowsService1
             System.IO.StreamWriter fileWriter = new System.IO.StreamWriter(filePath, true);
             fileWriter.WriteLine("\n" + dateTime);
             fileWriter.Close();
+        }
+
+        private void cacheProcesses() //THIS IS THE TEST OF
+        {
+            Process[] processlist = Process.GetProcesses();
+
+            foreach (Process process in processlist)
+            {
+                if (!String.IsNullOrEmpty(process.MainWindowTitle))
+                {
+                    Console.WriteLine("Process: {0} ID: {1} Window title: {2}", process.ProcessName, process.Id, process.MainWindowTitle);
+                }
+            }
+            Console.WriteLine("\n");
         }
 
     }
