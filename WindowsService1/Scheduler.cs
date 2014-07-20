@@ -11,7 +11,7 @@ namespace WindowsService1
     {
 
         System.Timers.Timer oTimer = null;
-        double interval = 20000;
+        double interval = 10000;
 
         public void Start()
         {

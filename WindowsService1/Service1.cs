@@ -8,11 +8,14 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WindowsService1{
+namespace WindowsService1
+{
 
-    public partial class Service1 : ServiceBase{
+    public partial class Service1 : ServiceBase
+    {
 
-        public Service1(){
+        public Service1()
+        {
             InitializeComponent();
             InitializeScheduler();
         }
@@ -23,14 +26,21 @@ namespace WindowsService1{
             osheduler.Start();
         }
 
-        protected override void OnStart(string[] args){
-            Stopwatch stopWatch = new Stopwatch();  //we'll start by starting a new stopwatch
-            stopWatch.Start();                      //tracking the user's time logged in shall commence     
-
-            sampleFileCreation();                   //I'm following a tutorial
+        public void OnDebug()           //Lets see if I can add a dubugger class, if not, delete this and form a new strategy.
+        {
+            OnStart(null);
         }
 
-        private void sampleFileCreation(){
+        protected override void OnStart(string[] args)
+        {
+            Stopwatch stopWatch = new Stopwatch();  //This allows me to have regular routined function calls
+            stopWatch.Start();                      //initialization
+
+            sampleFileCreation();                   //I'm following a tutorial, this may be of import later.
+        }
+
+        private void sampleFileCreation()
+        {
             string filePath = @"C:\Users\Dev\Documents\visual studio 2013\Projects\WindowsService1\WindowsService1\sample.txt";
             string dateTime = DateTime.Now.ToString();
 
@@ -39,6 +49,8 @@ namespace WindowsService1{
             fileWriter.Close();
 
         }
+
+
 
         protected override void OnStop(){
 
