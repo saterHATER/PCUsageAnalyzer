@@ -16,7 +16,7 @@ namespace WindowsService1
             InitializeComponent();
         }
 
-        public override void commit(IDictionary savedState)
+        public override void Commit(IDictionary savedState)
         {
             base.Commit(savedState);
         }

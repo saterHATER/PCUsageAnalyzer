@@ -43,6 +43,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -59,12 +67,76 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
     {
         "CustomAction"
         {
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_1E3A29271E3D47BFA95CAF97A97D10D7"
+            {
+            "Name" = "8:Primary output from WindowsService1 (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_C08973481BA84B96A9B4D24B4BCCBC0F"
+            "FileType" = "3:2"
+            "InstallAction" = "3:2"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_AACC6517_800A_4328_A6C8_E36033F652E6"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_72D31CEDEC7B4CDBBF86F58EC92176C1"
+            {
+            "Name" = "8:Primary output from WindowsService1 (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_C08973481BA84B96A9B4D24B4BCCBC0F"
+            "FileType" = "3:2"
+            "InstallAction" = "3:4"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_6732C9F6_1093_4D3A_A8BD_6FF00187FF7B"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_B38BEA24DDAC4A50A484F6EEBCFEF5C1"
+            {
+            "Name" = "8:Primary output from WindowsService1 (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_C08973481BA84B96A9B4D24B4BCCBC0F"
+            "FileType" = "3:2"
+            "InstallAction" = "3:3"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_9788AEBA_F844_4B17_90AE_26DDCFBB172B"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_F59F3DB56F0148608B538E4D393F4071"
+            {
+            "Name" = "8:Primary output from WindowsService1 (Active)"
+            "Condition" = "8:Not(Installed OR PREVIOUSVERSINOSINSTALLED)"
+            "Object" = "8:_C08973481BA84B96A9B4D24B4BCCBC0F"
+            "FileType" = "3:2"
+            "InstallAction" = "3:1"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_E99A56E4_01CC_42BD_B6A0_A7C0EB59D27E"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
         }
         "DefaultFeature"
         {
@@ -143,7 +215,7 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:Setup1"
+        "ProductName" = "8:Setup1_BIOTCH"
         "ProductCode" = "8:{6FCC5EEB-1149-43BD-8029-3FCDD7DB0E26}"
         "PackageCode" = "8:{8C29840A-F94E-4DE8-A10D-E03D4B4ED2C0}"
         "UpgradeCode" = "8:{2F807B58-6697-4A11-A18C-34AB52754283}"
@@ -152,7 +224,7 @@
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:0.0.1"
         "Manufacturer" = "8:Default Company Name"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
