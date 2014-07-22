@@ -54,4 +54,24 @@ TODO:
   9. Demonstrate application manipulation with our service                        ()
   10. Add user distinction functionality in the service                           ()
   11. Test the service on another account                                         ()
-  12. Add a UI to modify the configuration file                                   ()
+  12. Add a UI to modify the configuration file
+
+==========================================================================================
+Game plan for this week
+==========================================================================================
+As of now:
+I'm able to hapily debug a working service that can capture running applications at regular intervals.
+What must be done:
+
+1. A scheme for recording program run times must be tested and implemented (some sor t of log file).
+
+2. A configuration file must be integrated into the service. I.E. the service must read configurations from a file in regular intervals
+
+3. The service (and the config) must distinguish different users
+ 
+Config Heiarchy:
+
+Users-->programs-->usage points
+     -->time periods-->point multipliers
+
+...yeah, I ought to get a diagram of this stuff. 
