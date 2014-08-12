@@ -14,10 +14,10 @@ namespace WindowsService1
         /// </summary>
         static void Main()
         {
-            MySettings ms = new MySettings(); //this is code for my xml settings thingy
-            ms.DatabaseConnection = "my database";
-            ms.LastAction = "print";
-            string PathToSave = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            MySettings ms = new MySettings();                                                               //this is code for my xml settings thingy
+            ms.DatabaseConnection = "my database";                                                          //
+            ms.LastAction = "print";                                                                        //
+            string PathToSave = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);  //
 #if DEBUG
             Service1 myService = new Service1();
             myService.OnDebug();
