@@ -18,6 +18,7 @@ namespace WindowsService1
         private int[] pids;         //ID numbers
         private int apps;           //My counter
         private int[] runTimes;     //Run times
+        private int sampleCount;    //# of times sampled
 
         public void newApp(Process process)
         {
@@ -39,6 +40,12 @@ namespace WindowsService1
                 }
             }
             Console.WriteLine("\n");
+        }
+
+        public void log()
+        {
+            //TODO: ADD STUFF HERE
+            //THIS IS IMPORTANT!
         }
 
     }
