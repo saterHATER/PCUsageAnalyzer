@@ -16,17 +16,18 @@ namespace WindowsService1
         static void Main()
         {
 
-            MySettings ms = new MySettings();                                                               //this is code for my xml settings thingy
-            ms.DatabaseConnection = "my database";                                                          //
-            ms.LastAction = "print";                                                                        //
-            string PathToSave = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);  //
-            string FileName = Path.Combine(PathToSave,"mysettings.txt");
-            ms.SaveToFile(FileName);
-            
-            /* Retrieve Settings */
-            
-            MySettings ms1 = MySettings.ReadFromFile(FileName);
-            Console.WriteLine(ms1.LastAction);
+            /* I don't know why I've put this here, I don't know how to do this yet */
+            //MySettings ms = new MySettings();                                                               //this is code for my xml settings thingy
+            //ms.DatabaseConnection = "my database";                                                          //
+            //ms.LastAction = "print";                                                                        //
+            //string PathToSave = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);  //
+            //string FileName = Path.Combine(PathToSave, "mysettings.txt");
+            //ms.SaveToFile(FileName);
+
+            // /* Retrieve Settings */
+
+            //MySettings ms1 = MySettings.ReadFromFile(FileName);
+            //Console.WriteLine(ms1.LastAction);
 
 #if DEBUG
             Service1 myService = new Service1();

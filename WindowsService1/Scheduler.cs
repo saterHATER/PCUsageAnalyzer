@@ -51,7 +51,7 @@ namespace WindowsService1
                     Console.WriteLine("Process: {0} ID: {1} Window title: {2}", process.ProcessName, process.Id, process.MainWindowTitle);
                 }
             }
-            Console.WriteLine("\n");
+            Console.WriteLine("\n **");//so this is what's running right now, switch it over to the 
         }
 
     }

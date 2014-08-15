@@ -19,13 +19,14 @@ namespace WindowsService1
         private int apps;           //My counter
         private int[] runTimes;     //Run times
         private int sampleCount;    //# of times sampled
+        string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
         public void newApp(Process process)
         {
             runTimes[apps] = 0;
             pids[apps] = process.Id;
             apps++;
-        }
+        }//intigration to the sample part would be nice, but something needs to check and see if the app's been run.
 
         public void sample()
         {
@@ -36,16 +37,26 @@ namespace WindowsService1
                 if (!String.IsNullOrEmpty(process.MainWindowTitle))
                 {
                     Console.WriteLine("Process: {0} ID: {1} Window title: {2}", process.ProcessName, process.Id, process.MainWindowTitle);
-                    
                 }
             }
             Console.WriteLine("\n");
         }
 
-        public void log()
+        public void log(Process[] processList)
         {
-            //TODO: ADD STUFF HERE
-            //THIS IS IMPORTANT!
+            
+            System.IO.StreamWriter fileWriter = new System.IO.StreamWriter(filePath, true);
+            string dateTime = DateTime.Now.ToString();
+
+            foreach (Process process in processList)
+            {
+                fileWriter.WriteLine("Sample from {0}: \n", dateTime);
+                if (!String.IsNullOrEmpty(process.MainWindowTitle))
+                {
+                    fileWriter.WriteLine("Process: {0} ID: {1} Window title: {2}", process.ProcessName, process.Id, process.MainWindowTitle);
+                }
+            }
+            Console.WriteLine("\n");
         }
 
     }
