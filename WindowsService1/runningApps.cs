@@ -9,44 +9,49 @@ namespace WindowsService1
 {
     class runningApps
     {
-        /* This app will keep a list of app IDs,
-         *  names, and run times. It may also
-         *  need to read a time limit int in 
-         *  the future once the config file is 
-         *  made.
-         */
-        private int[] pids;         //ID numbers
-        private int apps;           //My counter
-        private int[] runTimes;     //Run times
-        private int sampleCount;    //# of times sampled
+
+        Dictionary<String, int> allApps;//this contains <the process name, the intervals it's been collected>
         string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-
-
-        public void newApp(Process process)
+        
+        public void tabApp(Process process)
+        //intigration to the sample part would be nice, 
+        //but something needs to check and see if the app's been run.
         {
-            runTimes[apps] = 0;
-            pids[apps] = process.Id;
-            apps++;
-        }//intigration to the sample part would be nice, but something needs to check and see if the app's been run.
+            string pName = process.ProcessName;
+            if (allApps.ContainsKey(pName))
+            //if there's a process of the same name....
+            {
+                allApps[pName] = allApps[pName]++;
+            }
+            else
+            {
+                allApps[pName] = 0;
+            }
+        }
+
 
         public void sample()
+        /*
+         * This is now called by the scheduler class. That's really all I needed from that class.
+         * */
         {
             Process[] processlist = Process.GetProcesses();
 
             foreach (Process process in processlist)
             {
                 if (!String.IsNullOrEmpty(process.MainWindowTitle))
+                    //this is where I need to work next.
                 {
-                    Console.WriteLine("Process: {0} ID: {1} Window title: {2}", process.ProcessName, process.Id, process.MainWindowTitle);
+                    Console.WriteLine("Process: {0} ID: {1}", process.ProcessName, process.Id);
                 }
             }
             Console.WriteLine("\n");
         }
 
+
         public void log(Process[] processList)
         {
-            
             System.IO.StreamWriter fileWriter = new System.IO.StreamWriter(filePath, true);
             string dateTime = DateTime.Now.ToString();
 
@@ -55,7 +60,7 @@ namespace WindowsService1
                 fileWriter.WriteLine("Sample from {0}: \n", dateTime);
                 if (!String.IsNullOrEmpty(process.MainWindowTitle))
                 {
-                    fileWriter.WriteLine("Process: {0} ID: {1} Window title: {2}", process.ProcessName, process.Id, process.MainWindowTitle);
+                    fileWriter.WriteLine("Process: {0} ID: {1}", process.ProcessName, process.Id);
                 }
             }
             Console.WriteLine("\n");
