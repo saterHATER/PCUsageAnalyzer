@@ -21,6 +21,8 @@ namespace WindowsService1
         private int sampleCount;    //# of times sampled
         string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
+
+
         public void newApp(Process process)
         {
             runTimes[apps] = 0;
