@@ -13,20 +13,27 @@ namespace WindowsService1
         Dictionary<String, int> allApps;//this contains <the process name, the intervals it's been collected>
         string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-        
+        static runningApps()
+        {
+            Dictionary<String,int> allApps = new Dictionary<String, int>();
+        }
+
         public void tabApp(Process process)
         //intigration to the sample part would be nice, 
         //but something needs to check and see if the app's been run.
         {
             string pName = process.ProcessName;
-            if (allApps.ContainsKey(pName))
+            int runCount = 0;
+            if (allApps.TryGetValue(pName,out runCount))
             //if there's a process of the same name....
             {
-                allApps[pName] = allApps[pName]++;
+                allApps[pName] = runCount++;
+                Console.WriteLine("increased the usage coefficient of: {0}, to: {1}", pName,runCount);
             }
             else
             {
-                allApps[pName] = 0;
+                allApps.Add(pName,0);
+                Console.WriteLine("Wrote a new process to allApps: {0}", pName);
             }
         }
 
@@ -44,6 +51,7 @@ namespace WindowsService1
                     //this is where I need to work next.
                 {
                     Console.WriteLine("Process: {0} ID: {1}", process.ProcessName, process.Id);
+                    tabApp(process);
                 }
             }
             Console.WriteLine("\n");
