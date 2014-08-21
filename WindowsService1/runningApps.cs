@@ -10,12 +10,13 @@ namespace WindowsService1
     class runningApps
     {
 
-        Dictionary<String, int> allApps;//this contains <the process name, the intervals it's been collected>
-        string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        private static Dictionary<String, int> _procs;//this contains <the process name, the intervals it's been collected>
+        private static string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
         static runningApps()
         {
-            Dictionary<String,int> allApps = new Dictionary<String, int>();
+            _procs = new Dictionary<String, int>();//FINALLY! I'm an idiot.
+            _procs.Add("don't Freak", 0);
         }
 
         public void tabApp(Process process)
@@ -24,16 +25,19 @@ namespace WindowsService1
         {
             string pName = process.ProcessName;
             int runCount = 0;
-            if (allApps.TryGetValue(pName,out runCount))
-            //if there's a process of the same name....
+            if (_procs.Count == 1)
             {
-                allApps[pName] = runCount++;
-                Console.WriteLine("increased the usage coefficient of: {0}, to: {1}", pName,runCount);
+                Console.WriteLine("poop!");
+                _procs.Add(pName, runCount);
             }
             else
             {
-                allApps.Add(pName,0);
-                Console.WriteLine("Wrote a new process to allApps: {0}", pName);
+                if (_procs.ContainsKey(pName))
+                {
+                    _procs.TryGetValue(pName, out runCount);
+                    _procs[pName] = ++runCount;
+                    Console.WriteLine("{0} has been running for {1} cycles.", pName, runCount);
+                }
             }
         }
 
@@ -48,7 +52,6 @@ namespace WindowsService1
             foreach (Process process in processlist)
             {
                 if (!String.IsNullOrEmpty(process.MainWindowTitle))
-                    //this is where I need to work next.
                 {
                     Console.WriteLine("Process: {0} ID: {1}", process.ProcessName, process.Id);
                     tabApp(process);
