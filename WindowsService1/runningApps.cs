@@ -36,16 +36,16 @@ namespace WindowsService1
                 {
                     _procs.TryGetValue(pName, out runCount);
                     _procs[pName] = ++runCount;
-                    Console.WriteLine("{0} has been running for {1} cycles.", pName, runCount);
+                }
+                else
+                {
+                    _procs.Add(pName, 0);
                 }
             }
         }
 
 
         public void sample()
-        /*
-         * This is now called by the scheduler class. That's really all I needed from that class.
-         * */
         {
             Process[] processlist = Process.GetProcesses();
 
