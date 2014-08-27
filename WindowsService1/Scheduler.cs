@@ -23,6 +23,7 @@ namespace WindowsService1
             oTimer.Start();
 
             appCollector = new runningApps();
+            
 
             oTimer.Elapsed += new System.Timers.ElapsedEventHandler(oTimerElapsed);
         }
@@ -30,6 +31,11 @@ namespace WindowsService1
         public void oTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             appCollector.sample();
+        }
+
+        public void closeUp()
+        {
+
         }
 
     }

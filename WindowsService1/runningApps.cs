@@ -4,42 +4,44 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace WindowsService1
 {
     class runningApps
     {
 
-        private static Dictionary<String, int> _procs;//this contains <the process name, the intervals it's been collected>
-        private static string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        private static Dictionary<String, int> _progs;//this contains <the process name, the intervals it's been collected>
+        private static Dictionary<String, int> _prevProgs;
+        private static int logEvents;
+        private static string filename = "log.txt";
+        private static string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\" + filename ;
 
         static runningApps()
         {
-            _procs = new Dictionary<String, int>();//FINALLY! I'm an idiot.
-            _procs.Add("don't Freak", 0);
+            _progs = new Dictionary<String, int>();//FINALLY! I'm an idiot.
+            _progs.Add("don't Freak", 0);
         }
 
         public void tabApp(Process process)
-        //intigration to the sample part would be nice, 
-        //but something needs to check and see if the app's been run.
         {
             string pName = process.ProcessName;
             int runCount = 0;
-            if (_procs.Count == 1)
+            if (_progs.Count == 1)
             {
                 Console.WriteLine("poop!");
-                _procs.Add(pName, runCount);
+                _progs.Add(pName, runCount);
             }
             else
             {
-                if (_procs.ContainsKey(pName))
+                if (_progs.ContainsKey(pName))
                 {
-                    _procs.TryGetValue(pName, out runCount);
-                    _procs[pName] = ++runCount;
+                    _progs.TryGetValue(pName, out runCount);
+                    _progs[pName] = ++runCount;
                 }
                 else
                 {
-                    _procs.Add(pName, 0);
+                    _progs.Add(pName, 0);
                 }
             }
         }
@@ -57,24 +59,24 @@ namespace WindowsService1
                     tabApp(process);
                 }
             }
-            Console.WriteLine("\n");
+            log();
         }
 
 
-        public void log(Process[] processList)
+        public void log()
         {
             System.IO.StreamWriter fileWriter = new System.IO.StreamWriter(filePath, true);
-            string dateTime = DateTime.Now.ToString();
-
-            foreach (Process process in processList)
+            fileWriter.WriteLine("Written on: ");
+            foreach (var entry in _progs)
             {
-                fileWriter.WriteLine("Sample from {0}: \n", dateTime);
-                if (!String.IsNullOrEmpty(process.MainWindowTitle))
-                {
-                    fileWriter.WriteLine("Process: {0} ID: {1}", process.ProcessName, process.Id);
-                }
+                fileWriter.WriteLine("{0}::{1},", entry.Key, entry.Value);
             }
-            Console.WriteLine("\n");
+            fileWriter.Close();
+        }
+
+        public void startWatch()
+        {
+
         }
 
     }

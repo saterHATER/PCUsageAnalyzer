@@ -36,22 +36,10 @@ namespace WindowsService1
         {
             Stopwatch stopWatch = new Stopwatch();  //This allows me to have regular routined function calls
             stopWatch.Start();                      //initialization 
-
-            sampleFileCreation();                   //I'm following a tutorial, this may be of import later.
         }
 
-        private void sampleFileCreation()
+        protected override void OnStop()
         {
-            string filePath = @"C:\Users\Dev\Documents\visual studio 2013\Projects\WindowsService1\WindowsService1\sample.txt";
-            string dateTime = DateTime.Now.ToString();
-
-            System.IO.StreamWriter fileWriter = new System.IO.StreamWriter(filePath, true);
-            fileWriter.WriteLine("\n" + dateTime);
-            fileWriter.Close();
-
-        }
-
-        protected override void OnStop(){
 
         }
     }
