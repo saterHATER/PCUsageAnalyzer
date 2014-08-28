@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Data;
 
 namespace WindowsService1
 {
@@ -12,6 +13,7 @@ namespace WindowsService1
     {
 
         private static Dictionary<String, int> _progs;//this contains <the process name, the intervals it's been collected>
+        private static DataTable _progsy;   //this is PoC right now. But TOTALLY better if I do this...
         private static Dictionary<String, int> _prevProgs;
         private static int logEvents;
         private static string filename = "log.txt";
@@ -19,8 +21,18 @@ namespace WindowsService1
 
         static runningApps()
         {
-            _progs = new Dictionary<String, int>();//FINALLY! I'm an idiot.
+            _progs = new Dictionary<String, int>();
             _progs.Add("don't Freak", 0);
+            _progsy = new DataTable("current_Filings");         //again, I'm working on this. [NEEDS FACTORY METHOD]
+            DataColumn ID = new DataColumn();                   //make col1 [THIS IS TOO MANUAL, CHECK OUT SOMETHING ELSE]
+            ID.DataType = System.Type.GetType("System.Int32");
+            _progsy.Columns.Add(ID);
+            DataColumn PID = new DataColumn();                  //make col2 [dotnetperls.com/datatable]
+            ID.DataType = System.Type.GetType("String");
+            _progsy.Columns.Add(PID);
+            DataColumn pName = new DataColumn();                //make col3
+            pName.DataType = System.Type.GetType("String");
+            _progsy.Columns.Add(pName);
         }
 
         public void tabApp(Process process)
