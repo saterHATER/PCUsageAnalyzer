@@ -23,22 +23,22 @@ namespace WindowsService1
         {
             _progs = new Dictionary<String, int>();
             _progs.Add("don't Freak", 0);
+
+            //////////////////////////////////////THE BETTER WAY//////////////////////////////////////////////////////
             _progsy = new DataTable("current_Filings");         //again, I'm working on this. [NEEDS FACTORY METHOD]
-            DataColumn ID = new DataColumn();                   //make col1 [THIS IS TOO MANUAL, CHECK OUT SOMETHING ELSE]
-            ID.DataType = System.Type.GetType("System.Int32");
-            _progsy.Columns.Add(ID);
-            DataColumn PID = new DataColumn();                  //make col2 [dotnetperls.com/datatable]
-            ID.DataType = System.Type.GetType("String");
-            _progsy.Columns.Add(PID);
-            DataColumn pName = new DataColumn();                //make col3
-            pName.DataType = System.Type.GetType("String");
-            _progsy.Columns.Add(pName);
+            DataColumn[0] names = new DataColumn()[0];
+            names[0].DataType = System.Type.GetType("System.string");
+            names[0].ColumnName = "Process Name";
+            _progsy.PrimaryKey = names;
+            _progsy.Columns.Add("pName", typeof(String));
+            _progsy.Columns.Add("samples", typeof(int));
         }
 
         public void tabApp(Process process)
         {
             string pName = process.ProcessName;
             int runCount = 0;
+            
             if (_progs.Count == 1)
             {
                 Console.WriteLine("poop!");
@@ -56,6 +56,13 @@ namespace WindowsService1
                     _progs.Add(pName, 0);
                 }
             }
+
+
+            if (_progsy.Rows.Count == 0)
+            {
+                _progsy.Rows.Add(pName, runCount);
+            }
+
         }
 
 
