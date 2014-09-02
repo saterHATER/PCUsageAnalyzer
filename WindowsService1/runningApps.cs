@@ -10,11 +10,12 @@ using System.Data;
 namespace WindowsService1
 {
     class runningApps
+        /* this will get a list of all programs running at a certain interval of time.
+         * It's calling HistoryDataTable to tabulate all program consumption. But for now
+         * I'm also keeping a _progs dictionary for some reason :/ */
     {
 
-        private static Dictionary<String, int> _progs;//this contains <the process name, the intervals it's been collected>
-        private static DataTable _progsy;   //this is PoC right now. But TOTALLY better if I do this...
-        private static Dictionary<String, int> _prevProgs;
+        private static Dictionary<String, int> _progs;//this contains <the process name, the intervals it's been collected
         private static int logEvents;
         private static string filename = "log.txt";
         private static string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\" + filename ;
@@ -23,15 +24,6 @@ namespace WindowsService1
         {
             _progs = new Dictionary<String, int>();
             _progs.Add("don't Freak", 0);
-
-            //////////////////////////////////////THE BETTER WAY//////////////////////////////////////////////////////
-            _progsy = new DataTable("current_Filings");         //again, I'm working on this. [NEEDS FACTORY METHOD]
-            DataColumn[0] names = new DataColumn()[0];
-            names[0].DataType = System.Type.GetType("System.string");
-            names[0].ColumnName = "Process Name";
-            _progsy.PrimaryKey = names;
-            _progsy.Columns.Add("pName", typeof(String));
-            _progsy.Columns.Add("samples", typeof(int));
         }
 
         public void tabApp(Process process)
@@ -56,13 +48,6 @@ namespace WindowsService1
                     _progs.Add(pName, 0);
                 }
             }
-
-
-            if (_progsy.Rows.Count == 0)
-            {
-                _progsy.Rows.Add(pName, runCount);
-            }
-
         }
 
 
@@ -92,11 +77,5 @@ namespace WindowsService1
             }
             fileWriter.Close();
         }
-
-        public void startWatch()
-        {
-
-        }
-
     }
 }
