@@ -24,6 +24,10 @@ namespace WindowsService1
             _ProgramHistory.Columns.Add("Start Time", typeof(int));
             _ProgramHistory.Columns.Add("Last Tab", typeof(int));
             _ProgramHistory.Columns.Add("End Time", typeof(int));
+            add("eeny");
+            add("miney");
+            add("meany");
+            add("moe");
         }
 
         public void record(String processName, int time)
@@ -38,14 +42,30 @@ namespace WindowsService1
             }
         }
 
-        private DataRow[] rowsWithNames(String processName)
+        private static List<DataRow> rowsWithName(String processName)
             //Now here's where I'm going to get all of my datarows 
             //with a matching process name
         {
-            foreach (DataRow row in _ProgramHistory.Rows)
-            {
-                //TODO: figure out how to check the first column
+            try {
+                List<DataRow> foundRows = new List<DataRow>();
+                foreach (DataRow row in _ProgramHistory.Rows)
+                {
+                    String pName = row.ItemArray[0].ToString();
+                    if (pName == processName)
+                    {
+                        foundRows.Add(row);
+                    }
+                }
+                return foundRows;
+            } catch {
+                return null;
             }
+        }
+
+        private static void add(String pName)
+            //pretty self explanitory. More to add here.
+        {
+            _ProgramHistory.Rows.Add(pName,1,1,1);
         }
 
     }

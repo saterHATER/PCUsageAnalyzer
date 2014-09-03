@@ -20,10 +20,14 @@ namespace WindowsService1
         private static string filename = "log.txt";
         private static string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\" + filename ;
 
+        private static HistoryDataTable test;//I need this to test my HDT class.
+
         static runningApps()
         {
             _progs = new Dictionary<String, int>();
             _progs.Add("don't Freak", 0);
+
+            test = new HistoryDataTable();
         }
 
         public void tabApp(Process process)
