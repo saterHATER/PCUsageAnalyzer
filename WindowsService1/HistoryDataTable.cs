@@ -15,39 +15,50 @@ namespace WindowsService1
     {
 
         private static DataTable _ProgramHistory;
-        
-        static HistoryDataTable()   
+        // TODO add a time interval variable.
+
+
+        static HistoryDataTable()
             /* I'm initializing the datatable and setting the rows.*/
         {
             _ProgramHistory = new DataTable("current_Filings");
             _ProgramHistory.Columns.Add("pName", typeof(String));
-            _ProgramHistory.Columns.Add("Start Time", typeof(int));
-            _ProgramHistory.Columns.Add("Last Tab", typeof(int));
-            _ProgramHistory.Columns.Add("End Time", typeof(int));
-            add("eeny");
-            add("miney");
-            add("meany");
-            add("moe");
+            _ProgramHistory.Columns.Add("Start Time", typeof(String));
+            _ProgramHistory.Columns.Add("End Time", typeof(String));
+
+            //TODO: add a time interval thing here
         }
 
-        public void record(String processName, int time)
+
+        public void record(String processName, String time)
             /* I'll take a process, date (as a formatted int, I hate that idea)
              * and I'll selectively add it into the data table, this should
              * hopfully allow for total analysis of program usage */
         {
-            if (_ProgramHistory.Rows.Count == 0)
-                // if were off to a blank slate, here's what we add.
+            List<DataRow> matchingRows = rowsWithName(processName);
+                
+            if (matchingRows.Count == 0)
+                //if there are no entries with the corresponding process name...
             {
-                _ProgramHistory.Rows.Add(processName,time,time);
+                _ProgramHistory.Rows.Add(processName, time, time);
             }
+            else 
+                // now we're assuming there's a match, we need to check if the
+                // row is on currently on a streak and how to best                 
+            {
+                //todo: stuff here
+            }
+
         }
+
 
         private static List<DataRow> rowsWithName(String processName)
             //Now here's where I'm going to get all of my datarows 
             //with a matching process name
         {
-            try {
-                List<DataRow> foundRows = new List<DataRow>();
+            List<DataRow> foundRows = new List<DataRow>();
+            try 
+            {
                 foreach (DataRow row in _ProgramHistory.Rows)
                 {
                     String pName = row.ItemArray[0].ToString();
@@ -57,16 +68,13 @@ namespace WindowsService1
                     }
                 }
                 return foundRows;
-            } catch {
-                return null;
+            }
+            catch
+            {
+                return foundRows;
             }
         }
 
-        private static void add(String pName)
-            //pretty self explanitory. More to add here.
-        {
-            _ProgramHistory.Rows.Add(pName,1,1,1);
-        }
 
     }
 }

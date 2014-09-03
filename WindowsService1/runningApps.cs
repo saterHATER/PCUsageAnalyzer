@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Data;
 
 namespace WindowsService1
@@ -57,6 +56,8 @@ namespace WindowsService1
 
         public void sample()
         {
+            String now = DateTime.Now.ToString();
+            
             Process[] processlist = Process.GetProcesses();
 
             foreach (Process process in processlist)
