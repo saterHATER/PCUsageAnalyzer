@@ -13,7 +13,7 @@ namespace WindowsService1
 
         runningApps appCollector;
         System.Timers.Timer oTimer = null;
-        double interval = 10000;
+        int interval = 10000;
 
         public void Start()
         {
@@ -23,7 +23,6 @@ namespace WindowsService1
             oTimer.Start();
 
             appCollector = new runningApps();
-            
 
             oTimer.Elapsed += new System.Timers.ElapsedEventHandler(oTimerElapsed);
         }

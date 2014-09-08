@@ -5,28 +5,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//here's a thought. Compare the PID's. Clever. Maybe later
+
 namespace WindowsService1
 {
     
     class HistoryDataTable
         /* This class is keeping a datatable of the history of all major app usage
          * I need to work on this. There's much to be decided on how to do this... */
-
     {
 
         private static DataTable _ProgramHistory;
-        // TODO add a time interval variable.
 
+        private static String _lastRecordTime;
 
         static HistoryDataTable()
             /* I'm initializing the datatable and setting the rows.*/
         {
             _ProgramHistory = new DataTable("current_Filings");
-            _ProgramHistory.Columns.Add("pName", typeof(String));
-            _ProgramHistory.Columns.Add("Start Time", typeof(String));
-            _ProgramHistory.Columns.Add("End Time", typeof(String));
+            _ProgramHistory.Columns.Add("pName", typeof(String));       //row 0
+            _ProgramHistory.Columns.Add("Start Time", typeof(String));  //row 1
+            _ProgramHistory.Columns.Add("End Time", typeof(String));    //row 2
 
-            //TODO: add a time interval thing here
+            _lastRecordTime = "";
         }
 
 
@@ -43,12 +44,49 @@ namespace WindowsService1
                 _ProgramHistory.Rows.Add(processName, time, time);
             }
             else 
-                // now we're assuming there's a match, we need to check if the
-                // row is on currently on a streak and how to best                 
             {
-                //todo: stuff here
+                int rowNumber = recordingInProgress(matchingRows);
+                
+                if (rowNumber == -1)
+                    //In this case I must simply add a new row...
+                {
+                    _ProgramHistory.Rows.Add(processName, time, time);
+                }
+                else
+                    // This is the case where we've got a program currently running
+                {
+                    _ProgramHistory.Rows[rowNumber]["End Time"] = time;
+                }
             }
 
+        }
+
+
+        private static int recordingInProgress(List<DataRow> matchingRows)
+        {
+            int rowCount = 0;
+            try
+            {
+                foreach (DataRow row in matchingRows)
+                {
+                    String lastTimeStamp = row.ItemArray[2].ToString();
+                    //I don't like hard-coding the column number...
+
+                    if (_lastRecordTime == lastTimeStamp) return rowCount;
+                    rowCount++;
+                }
+                return -1;
+            }
+            catch 
+            {
+                return -1;
+            }
+        }
+
+
+        public void updateLastRecordTime(String time)
+        {
+            _lastRecordTime = time;
         }
 
 

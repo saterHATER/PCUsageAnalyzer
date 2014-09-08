@@ -14,19 +14,20 @@ namespace WindowsService1
          * I'm also keeping a _progs dictionary for some reason :/ */
     {
 
-        private static Dictionary<String, int> _progs;//this contains <the process name, the intervals it's been collected
-        private static int logEvents;
-        private static string filename = "log.txt";
-        private static string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\" + filename ;
+        private static Dictionary<String, int> _progs;  // this contains <the process name, the
+                                                        // intervals it's been collected
+        private static int _logEvents;
 
-        private static HistoryDataTable test;//I need this to test my HDT class.
+        private static HistoryDataTable _test;//I need this to test my HDT class.
+
+        private static int _interval;
 
         static runningApps()
         {
             _progs = new Dictionary<String, int>();
             _progs.Add("don't Freak", 0);
 
-            test = new HistoryDataTable();
+            _test = new HistoryDataTable();
         }
 
         public void tabApp(Process process)
@@ -36,7 +37,7 @@ namespace WindowsService1
             
             if (_progs.Count == 1)
             {
-                Console.WriteLine("poop!");
+                //Console.WriteLine("poop!");
                 _progs.Add(pName, runCount);
             }
             else
@@ -66,21 +67,12 @@ namespace WindowsService1
                 {
                     Console.WriteLine("Process: {0} ID: {1}", process.ProcessName, process.Id);
                     tabApp(process);
+                    _test.record(process.ProcessName,now);
                 }
             }
-            log();
+            _test.updateLastRecordTime(now);
         }
 
 
-        public void log()
-        {
-            System.IO.StreamWriter fileWriter = new System.IO.StreamWriter(filePath, true);
-            fileWriter.WriteLine("Written on: ");
-            foreach (var entry in _progs)
-            {
-                fileWriter.WriteLine("{0}::{1},", entry.Key, entry.Value);
-            }
-            fileWriter.Close();
-        }
     }
 }
