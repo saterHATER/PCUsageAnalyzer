@@ -66,11 +66,12 @@ namespace WindowsService1
                 if (!String.IsNullOrEmpty(process.MainWindowTitle))
                 {
                     Console.WriteLine("Process: {0} ID: {1}", process.ProcessName, process.Id);
-                    tabApp(process);
+                    //tabApp(process);
                     _test.record(process.ProcessName,now);
                 }
             }
             _test.updateLastRecordTime(now);
+            _test.print();
         }
 
 

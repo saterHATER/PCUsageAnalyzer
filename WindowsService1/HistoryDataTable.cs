@@ -114,5 +114,29 @@ namespace WindowsService1
         }
 
 
+        public void print()
+        {
+            try
+            {
+                int count = -1;
+                foreach (DataRow row in _ProgramHistory.Rows)
+                {
+                    count++;
+                    Console.Write("Row {0}: ", count);
+                    foreach (Object item in row.ItemArray)
+                    {
+                        Console.Write(item.ToString() + "\v\v");
+                    }
+                    Console.WriteLine();
+                }
+                Console.WriteLine();
+            }
+            catch 
+            {
+                Console.WriteLine("there was a problem with reading the data");
+            }
+        }
+
+
     }
 }
