@@ -45,7 +45,8 @@ namespace WindowsService1
             }
             else 
             {
-                int rowNumber = recordingInProgress(matchingRows);
+                int rowNumber = recordingInProgress(matchingRows);//it's partially this.
+                //the rowNumber 'nabbed from this is farsicle. I need that fixed.
                 
                 if (rowNumber == -1)
                     //In this case I must simply add a new row...
@@ -63,6 +64,9 @@ namespace WindowsService1
 
 
         private static int recordingInProgress(List<DataRow> matchingRows)
+            //I thought this row was clearly self explanitory.
+            //It's supposed to return the row # where the matching row sits.
+            // It doesn't...yet.
         {
             int rowCount = 0;
             try
