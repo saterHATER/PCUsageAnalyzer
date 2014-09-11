@@ -19,14 +19,26 @@ namespace WindowsService1
 
         private static String _lastRecordTime;
 
+        private static Dictionary<String, int> _index; //this keeps track of rows by title;
+
         static HistoryDataTable()
             /* I'm initializing the datatable and setting the rows.*/
         {
             _ProgramHistory = new DataTable("current_Filings");
-            _ProgramHistory.Columns.Add("pName", typeof(String));       //row 0
-            _ProgramHistory.Columns.Add("Start Time", typeof(String));  //row 1
-            _ProgramHistory.Columns.Add("End Time", typeof(String));    //row 2
+            _index = new Dictionary<string,int>();
+            
+            _index.Add("Row Number", 0);
+            _ProgramHistory.Columns.Add("Row Number", typeof(int));     //row 0
+            
+            _index.Add("Program Name", 1);
+            _ProgramHistory.Columns.Add("Program Name", typeof(String));//row 1
 
+            _index.Add("Start Time", 2);
+            _ProgramHistory.Columns.Add("Start Time", typeof(String));  //row 2
+
+            _index.Add("End Time", 3);
+            _ProgramHistory.Columns.Add("End Time", typeof(String));    //row 3
+            
             _lastRecordTime = "";
         }
 
@@ -37,11 +49,11 @@ namespace WindowsService1
              * hopfully allow for total analysis of program usage */
         {
             List<DataRow> matchingRows = rowsWithName(processName);
-                
+
             if (matchingRows.Count == 0)
                 //if there are no entries with the corresponding process name...
             {
-                _ProgramHistory.Rows.Add(processName, time, time);
+                _ProgramHistory.Rows.Add(_ProgramHistory.Rows.Count, processName, time, time);
             }
             else 
             {
@@ -51,7 +63,7 @@ namespace WindowsService1
                 if (rowNumber == -1)
                     //In this case I must simply add a new row...
                 {
-                    _ProgramHistory.Rows.Add(processName, time, time);
+                    _ProgramHistory.Rows.Add(_ProgramHistory.Rows.Count, processName, time, time);//NEEDS A FIXIN'
                 }
                 else
                     // This is the case where we've got a program currently running
@@ -66,17 +78,18 @@ namespace WindowsService1
         private static int recordingInProgress(List<DataRow> matchingRows)
             //I thought this row was clearly self explanitory.
             //It's supposed to return the row # where the matching row sits.
-            // It doesn't...yet.
+            // It doesn't...yet.-->this should be a string
         {
             int rowCount = 0;
             try
             {
                 foreach (DataRow row in matchingRows)
                 {
-                    String lastTimeStamp = row.ItemArray[2].ToString();
-                    //I don't like hard-coding the column number...
+                    String lastTimeStamp = row.ItemArray[_index["End Time"]].ToString();
 
-                    if (_lastRecordTime == lastTimeStamp) return rowCount;
+                    if (_lastRecordTime == lastTimeStamp) return Convert.ToInt32(
+                        row.ItemArray[_index["Row Number"]].ToString());
+                    //^that line is essentially getting the row# that it's looking for...
                     rowCount++;
                 }
                 return -1;
@@ -103,7 +116,7 @@ namespace WindowsService1
             {
                 foreach (DataRow row in _ProgramHistory.Rows)
                 {
-                    String pName = row.ItemArray[0].ToString();
+                    String pName = row.ItemArray[_index["Program Name"]].ToString();
                     if (pName == processName)
                     {
                         foundRows.Add(row);
