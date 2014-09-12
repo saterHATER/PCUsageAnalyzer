@@ -135,11 +135,8 @@ namespace WindowsService1
         {
             try
             {
-                int count = -1;
                 foreach (DataRow row in _ProgramHistory.Rows)
                 {
-                    count++;
-                    Console.Write("Row {0}: ", count);
                     foreach (Object item in row.ItemArray)
                     {
                         Console.Write(item.ToString() + "\v\v");
@@ -154,6 +151,16 @@ namespace WindowsService1
             }
         }
 
+
+        public int UsageTotals(String DisiredApp)
+            /* This method outputs the total seconds a program has run
+             * Because I'm stupid, I need to deliniate each hour, minute and second*/
+        {
+            List<DataRow> MatchingRows = rowsWithName(DisiredApp);
+            return -1;
+
+        }
+            
 
     }
 }

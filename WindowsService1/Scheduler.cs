@@ -11,7 +11,7 @@ namespace WindowsService1
     class Scheduler
     {
 
-        runningApps appCollector;
+        ComputerManager appCollector;
         System.Timers.Timer oTimer = null;
         int interval = 10000;
 
@@ -22,7 +22,7 @@ namespace WindowsService1
             oTimer.Enabled = true;
             oTimer.Start();
 
-            appCollector = new runningApps();
+            appCollector = new ComputerManager();
 
             oTimer.Elapsed += new System.Timers.ElapsedEventHandler(oTimerElapsed);
         }
