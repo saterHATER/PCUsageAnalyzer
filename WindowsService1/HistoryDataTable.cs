@@ -170,11 +170,11 @@ namespace WindowsService1
 
         private static int timeDifference(string BeginTime, string EndTime)
         {
-            int hour = (Convert.ToInt32(BeginTime.Substring(0, 2))) - (Convert.ToInt32(EndTime.Substring(0, 2)));
+            int hour = (Convert.ToInt32(EndTime.Substring(0, 2))) - (Convert.ToInt32(BeginTime.Substring(0, 2)));
             hour = hour * 3600;
-            int min = (Convert.ToInt32(BeginTime.Substring(3, 2))) - (Convert.ToInt32(EndTime.Substring(3, 2)));
+            int min = (Convert.ToInt32(EndTime.Substring(3, 2))) - (Convert.ToInt32(BeginTime.Substring(3, 2)));
             min = min * 60;
-            int sec = (Convert.ToInt32(BeginTime.Substring(6, 2))) - (Convert.ToInt32(EndTime.Substring(6, 2)));
+            int sec = (Convert.ToInt32(EndTime.Substring(6, 2))) - (Convert.ToInt32(BeginTime.Substring(6, 2)));
             return hour+sec+min;
         }
 

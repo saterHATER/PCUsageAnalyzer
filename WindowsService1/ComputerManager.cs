@@ -41,8 +41,6 @@ namespace WindowsService1
             }
             _History.updateLastRecordTime(now);
             _History.print();  //purely a debugging measure
-
-            Console.WriteLine(_History.UsageTotals("WDExpress"));
         }
 
 
