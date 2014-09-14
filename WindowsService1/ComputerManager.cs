@@ -28,7 +28,8 @@ namespace WindowsService1
         public void sample()
         {
             String now = DateTime.Now.TimeOfDay.ToString();     //I'm gonna need to change the 
-            now = now.Substring(0, 8);                          //datatable if the day changes            
+            now = now.Substring(0, 8);                          //datatable if the day changes
+
             Process[] processlist = Process.GetProcesses();
 
             foreach (Process process in processlist)
@@ -40,6 +41,8 @@ namespace WindowsService1
             }
             _History.updateLastRecordTime(now);
             _History.print();  //purely a debugging measure
+
+            Console.WriteLine(_History.UsageTotals("WDExpress"));
         }
 
 

@@ -157,10 +157,26 @@ namespace WindowsService1
              * Because I'm stupid, I need to deliniate each hour, minute and second*/
         {
             List<DataRow> MatchingRows = rowsWithName(DisiredApp);
-            return -1;
+            int UsageTime = 0;
 
+            foreach (DataRow row in MatchingRows)
+            {
+                String StartTime = row.ItemArray[_index["Start Time"]].ToString();
+                String EndTime = row.ItemArray[_index["End Time"]].ToString();
+                UsageTime += timeDifference(StartTime, EndTime);
+            }
+            return UsageTime;
         }
-            
+
+        private static int timeDifference(string BeginTime, string EndTime)
+        {
+            int hour = (Convert.ToInt32(BeginTime.Substring(0, 2))) - (Convert.ToInt32(EndTime.Substring(0, 2)));
+            hour = hour * 3600;
+            int min = (Convert.ToInt32(BeginTime.Substring(3, 2))) - (Convert.ToInt32(EndTime.Substring(3, 2)));
+            min = min * 60;
+            int sec = (Convert.ToInt32(BeginTime.Substring(6, 2))) - (Convert.ToInt32(EndTime.Substring(6, 2)));
+            return hour+sec+min;
+        }
 
     }
 }
