@@ -168,6 +168,7 @@ namespace WindowsService1
             return UsageTime;
         }
 
+
         private static int timeDifference(string BeginTime, string EndTime)
         {
             int hour = (Convert.ToInt32(EndTime.Substring(0, 2))) - (Convert.ToInt32(BeginTime.Substring(0, 2)));
@@ -177,6 +178,7 @@ namespace WindowsService1
             int sec = (Convert.ToInt32(EndTime.Substring(6, 2))) - (Convert.ToInt32(BeginTime.Substring(6, 2)));
             return hour+sec+min;
         }
+
 
     }
 }

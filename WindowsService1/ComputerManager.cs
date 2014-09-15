@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Data;
 
+using System.IO;
+using System.Runtime.InteropServices;
+
+
 namespace WindowsService1
 {
     class ComputerManager
@@ -17,6 +21,7 @@ namespace WindowsService1
 
         private static List<String> _AppsInQuestion;    //This will be the list of all programs 
                                                         //I want to scrutinize
+
         static ComputerManager()
         {
             _History = new HistoryDataTable();
@@ -36,11 +41,30 @@ namespace WindowsService1
             {
                 if (!String.IsNullOrEmpty(process.MainWindowTitle))
                 {
-                    _History.record(process.ProcessName,now);
+                    _History.record(process.ProcessName, now);
                 }
             }
             _History.updateLastRecordTime(now);
             _History.print();  //purely a debugging measure
+        }
+
+
+        private void CutOffUser()
+        /* Not going to bother with this right now.
+         * It's not all that important quite right now, 
+         * lets work on stuff that can spot patterns */
+        {
+            //ExitWindowsEx(0, 0);
+        }
+
+
+        public Dictionary<String, int> Report()
+        {
+            Dictionary<String, int> output = new Dictionary<string, int>();
+            
+            //todo: this!
+
+            return output;
         }
 
 
