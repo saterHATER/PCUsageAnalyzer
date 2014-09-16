@@ -46,6 +46,7 @@ namespace WindowsService1
             }
             _History.updateLastRecordTime(now);
             _History.print();  //purely a debugging measure
+            CutOffUser();
         }
 
 
@@ -55,14 +56,18 @@ namespace WindowsService1
          * lets work on stuff that can spot patterns */
         {
             //ExitWindowsEx(0, 0);
+            System.Diagnostics.Process.Start("shutdown", "/l /f");
         }
 
 
         public Dictionary<String, int> Report()
         {
             Dictionary<String, int> output = new Dictionary<string, int>();
-            
-            //todo: this!
+
+            foreach (string app in _AppsInQuestion.ToArray())
+            {
+
+            }
 
             return output;
         }
