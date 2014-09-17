@@ -26,7 +26,8 @@ namespace WindowsService1
         {
             _History = new HistoryDataTable();
             _AppsInQuestion = new List<string>();
-            _AppsInQuestion.Add("Chrome");          //this is in lieu of my ability to call out
+            _AppsInQuestion.Add("chrome");          //this is in lieu of my ability to call out
+            _AppsInQuestion.Add("StikyNot");
         }
 
 
@@ -46,16 +47,13 @@ namespace WindowsService1
             }
             _History.updateLastRecordTime(now);
             _History.print();  //purely a debugging measure
-            CutOffUser();
+            //CutOffUser();
+            Dictionary<String, int> dummy = Report();
         }
 
 
         private void CutOffUser()
-        /* Not going to bother with this right now.
-         * It's not all that important quite right now, 
-         * lets work on stuff that can spot patterns */
         {
-            //ExitWindowsEx(0, 0);
             System.Diagnostics.Process.Start("shutdown", "/l /f");
         }
 
@@ -66,7 +64,7 @@ namespace WindowsService1
 
             foreach (string app in _AppsInQuestion.ToArray())
             {
-
+                output.Add(app, _History.UsageTotals(app));
             }
 
             return output;
