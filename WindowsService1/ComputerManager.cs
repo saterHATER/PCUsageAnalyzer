@@ -13,9 +13,9 @@ using System.Runtime.InteropServices;
 namespace WindowsService1
 {
     class ComputerManager
-        /*This will be what physically gather's up all programs, logs out the user, keeps track
-         * of the bad stuff being consumed...etc.
-         */
+    /* This will be what physically gather's up all programs, logs out the user, keeps
+     * track of the bad stuff being consumed...etc.
+     */
     {
         private static HistoryDataTable _History;      //This keeps track of the program usage.
 
@@ -23,11 +23,13 @@ namespace WindowsService1
                                                         //I want to scrutinize
 
         static ComputerManager()
+            //this is where I need to add settings 'n sh**. I need to establish the user and the
+            //apps that are in question. Let's angle for a more analysis role for now. It's baby
+            //stuff to go down the PC route.
         {
             _History = new HistoryDataTable();
             _AppsInQuestion = new List<string>();
-            _AppsInQuestion.Add("chrome");          //this is in lieu of my ability to call out
-            _AppsInQuestion.Add("StikyNot");
+            String userName = Environment.UserName;
         }
 
 
