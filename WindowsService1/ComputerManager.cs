@@ -28,6 +28,7 @@ namespace WindowsService1
             //stuff to go down the PC route.
         {
             _History = new HistoryDataTable();
+            _History.GetDataSet();
             _AppsInQuestion = new List<string>();
             String userName = Environment.UserName;
         }
