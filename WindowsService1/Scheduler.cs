@@ -13,7 +13,7 @@ namespace WindowsService1
 
         ComputerManager appCollector;
         System.Timers.Timer oTimer = null;
-        int interval = 10000;
+        private static int interval = 10000;
 
         public void Start()
         {
