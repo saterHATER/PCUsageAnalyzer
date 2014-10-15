@@ -27,7 +27,7 @@ namespace WindowsService1
         {
             _ProgramHistory = new DataTable("current_Filings");
             _index = new Dictionary<string,int>();
-            
+ 
             _index.Add("Row Number", 0);
             _ProgramHistory.Columns.Add("Row Number", typeof(int));     //row 0
             
@@ -39,8 +39,19 @@ namespace WindowsService1
 
             _index.Add("End Time", 3);
             _ProgramHistory.Columns.Add("End Time", typeof(String));    //row 3
-            
+
+            _ProgramHistory.TableName = "History_" + Environment.UserName.ToString();
+            _ProgramHistory.ExtendedProperties.Add("End Date", DateTime.Now);
+            _ProgramHistory.ExtendedProperties.Add("User Name", Environment.UserName);
+            _ProgramHistory.ExtendedProperties.Add("Login Periods", 0);
+
             _lastRecordTime = "";
+        }
+
+
+        public String GetTableTitle()
+        {
+            return _ProgramHistory.TableName.ToString();
         }
 
 
@@ -181,6 +192,12 @@ namespace WindowsService1
             int sec = (Convert.ToInt32(EndTime.Substring(6, 2))) 
                 - (Convert.ToInt32(BeginTime.Substring(6, 2)));
             return hour+sec+min;
+        }
+
+
+        public DataTable PukeUpDataTable()
+        {
+            return _ProgramHistory;
         }
 
 

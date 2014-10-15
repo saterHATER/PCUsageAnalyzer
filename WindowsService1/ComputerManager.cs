@@ -19,6 +19,8 @@ namespace WindowsService1
     {
         private static HistoryDataTable _History;      //This keeps track of the program usage.
 
+        private static HistoryStorage _testDS;          //This is my dataset manager.
+
         private static List<String> _AppsInQuestion;    //This will be the list of all programs 
                                                         //I want to scrutinize
 
@@ -27,9 +29,10 @@ namespace WindowsService1
             //apps that are in question. Let's angle for a more analysis role for now. It's baby
             //stuff to go down the PC route.
         {
+            _testDS = new HistoryStorage();
             _History = new HistoryDataTable();
+            _testDS.AddDataTable(_History.PukeUpDataTable());
             _AppsInQuestion = new List<string>();
-            String userName = Environment.UserName;
         }
 
 
@@ -47,14 +50,14 @@ namespace WindowsService1
                     _History.record(process.ProcessName, now);
                 }
             }
-            _History.updateLastRecordTime(now);
+            Console.WriteLine(_History.GetTableTitle());
             _History.print();  //purely a debugging measure
             //CutOffUser();
             Dictionary<String, int> dummy = Report();
         }
 
 
-        private void CutOffUser()
+        private static void CutOffUser()
         {
             System.Diagnostics.Process.Start("shutdown", "/l /f");
         }
@@ -71,6 +74,9 @@ namespace WindowsService1
 
             return output;
         }
+
+
+
 
 
     }
