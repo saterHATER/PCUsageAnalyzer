@@ -31,7 +31,7 @@ namespace WindowsService1
         {
             _testDS = new HistoryStorage();
             _History = new HistoryDataTable();
-            _testDS.AddDataTable(_History.PukeUpDataTable());
+            //_testDS.AddDataTable(_History.PukeUpDataTable());
             _AppsInQuestion = new List<string>();
         }
 
@@ -51,8 +51,8 @@ namespace WindowsService1
                 }
             }
             Console.WriteLine(_History.GetTableTitle());
-            _History.print();  //purely a debugging measure
-            //CutOffUser();
+            _History.print();
+            _testDS.AddDataTable(_History.PukeUpDataTable());//currently debuging this shit
             Dictionary<String, int> dummy = Report();
         }
 

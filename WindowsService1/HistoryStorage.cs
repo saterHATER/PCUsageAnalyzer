@@ -35,18 +35,35 @@ namespace WindowsService1
 
         public void AddDataTable(DataTable dt)
         {
-            foreach(DataTable czek in _History.Tables)
+            if (_History.Tables.Count == 0)
             {
-                if (czek.TableName.Equals(dt.TableName))
-                {
-                    Console.WriteLine(dt.TableName + " is a match!");
-                }
-                else
-                {
-                    Console.WriteLine("gotta write a new table for " + dt.TableName);
-                    _History.Tables.Add(dt);
-                }                
+                _History.Tables.Add(dt);
+                Console.WriteLine(dt.TableName.ToString() + " Has been added.");
             }
+            else
+            {
+                foreach (DataTable czek in _History.Tables)
+                {
+                    if (czek.TableName.Equals(dt.TableName))
+                    {
+                        Console.WriteLine(dt.TableName + " Is allready in our database*!");
+                        if (czek.ExtendedProperties["End Date"] == dt.ExtendedProperties["End Date"])
+                        {
+                            Console.WriteLine("AND IT'S EVEN UP-TO-DATE! YAY!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("...But thew new one is probably more up-to-date...");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("gotta write a new table for " + dt.TableName);
+                        _History.Tables.Add(dt);
+                    }
+                }
+            }
+            WriteDataSet();
         }
 
 
