@@ -21,7 +21,19 @@ namespace WindowsService1
             
             if (File.Exists(@_FilePath))
             {
-                _History.ReadXml(_FilePath);   //this needs testing
+                Console.WriteLine("It exists!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!#############");
+                try
+                {
+                    _History.ReadXml(_FilePath); 
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("~~~~~~~~~");
+                    Console.WriteLine("~~~~~~~~~");
+                    Console.WriteLine(e.Message.ToString());
+                    Console.WriteLine("~~~~~~~~~");
+                    Console.WriteLine("~~~~~~~~~");
+                }
             }
 
         }

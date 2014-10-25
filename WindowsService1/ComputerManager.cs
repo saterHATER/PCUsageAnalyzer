@@ -31,7 +31,7 @@ namespace WindowsService1
         {
             _testDS = new HistoryStorage();
             _History = new HistoryDataTable();
-            //_testDS.AddDataTable(_History.PukeUpDataTable());
+            _testDS.AddDataTable(_History.PukeUpDataTable());
             _AppsInQuestion = new List<string>();
         }
 

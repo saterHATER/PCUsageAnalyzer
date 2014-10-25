@@ -176,7 +176,7 @@ namespace WindowsService1
                 String StartTime = row.ItemArray[_index["Start Time"]].ToString();
                 String EndTime = row.ItemArray[_index["End Time"]].ToString();
                 UsageTime += timeDifference(StartTime, EndTime);
-            }
+            }   
             return UsageTime;
         }
 
