@@ -41,7 +41,7 @@ namespace WindowsService1
             _ProgramHistory.Columns.Add("End Time", typeof(String));    //row 3
 
             _ProgramHistory.TableName = "History_" + Environment.UserName.ToString();
-            _ProgramHistory.ExtendedProperties.Add("End Date", DateTime.Now);
+            _ProgramHistory.ExtendedProperties.Add("End Date", DateTime.Now.ToString().Substring(0, 8));
             _ProgramHistory.ExtendedProperties.Add("User Name", Environment.UserName);
             _ProgramHistory.ExtendedProperties.Add("Login Periods", 0);
 
@@ -83,12 +83,11 @@ namespace WindowsService1
                     _ProgramHistory.Rows[rowNumber]["End Time"] = time;
                 }
             }
-
+            _ProgramHistory.ExtendedProperties["EndDate"] = DateTime.Now;//update last touch time....
         }
 
 
         private static int recordingInProgress(List<DataRow> matchingRows)
-            //I thought this row was clearly self explanitory.
             //It's supposed to return the row # where the matching row sits.
             // It doesn't...yet.-->this should be a string
         {
@@ -102,12 +101,17 @@ namespace WindowsService1
                     if (_lastRecordTime == lastTimeStamp) return Convert.ToInt32(
                         row.ItemArray[_index["Row Number"]].ToString());
                     //^that line is essentially getting the row# that it's looking for...
+                    Console.WriteLine("timestamp '{0}' didn't match _lastRecordTime '{1}'", lastTimeStamp, _lastRecordTime);
                     rowCount++;
                 }
                 return -1;
             }
-            catch 
+            catch(Exception e)
             {
+                Console.WriteLine();
+                Console.WriteLine("~~~~~~SOMETHING HAPPENED WHEN COMPARING END-TIMES~~~~~~");
+                Console.WriteLine(e.Message.ToString());
+                Console.WriteLine();
                 return -1;
             }
         }
@@ -116,6 +120,7 @@ namespace WindowsService1
         public void updateLastRecordTime(String time)
         {
             _lastRecordTime = time;
+            _ProgramHistory.ExtendedProperties["End Time"] = time;
         }
 
 
@@ -195,11 +200,16 @@ namespace WindowsService1
         }
 
 
-        public DataTable PukeUpDataTable()
+        public DataTable ReturnDT()
         {
             return _ProgramHistory;
         }
 
+
+        public void ReplaceDataTable(DataTable newDT)
+        {
+            _ProgramHistory = newDT;
+        }
 
     }
 }
