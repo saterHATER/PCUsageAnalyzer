@@ -44,7 +44,7 @@ namespace WindowsService1
                         Console.WriteLine("~~~~~~~~~");
                     }
                 }
-                AddDataTable(_currentUser.ReturnDT());
+                AddDataTable(_currentUser);
                 WriteDataSet();
             }
             catch (Exception e)
@@ -60,22 +60,18 @@ namespace WindowsService1
         }
 
 
-        private static void AddDataTable(DataTable dt)
+        private static void AddDataTable(HistoryDataTable dt)
         //no. Fuck that. Do better than that fuckery.
         {
             try
             {
-                String targetDT = dt.TableName.ToString();
+                String targetDT = dt.ReturnDT().TableName.ToString();
                 if (_History.Tables.Contains(targetDT))
                 {
-                    
-                    Console.WriteLine("Merging logic needed...");
+                    dt.IntegrateDataTable(_History.Tables[targetDT]);
+                    _History.Tables.Remove(targetDT);
                 }
-                else
-                {
-                    Console.WriteLine("DT added...");
-                    _History.Tables.Add(dt);
-                }
+                _History.Tables.Add(dt.ReturnDT());
             }
             catch (Exception e)
             {
@@ -103,7 +99,7 @@ namespace WindowsService1
                 Console.WriteLine(_currentUser.GetTableTitle());
                 _currentUser.print();
                 _currentUser.updateLastRecordTime(now);
-                AddDataTable(_currentUser.ReturnDT());//currently debuging this shit
+                //AddDataTable(_currentUser.ReturnDT());//currently debuging this shit
                 WriteDataSet();
             }
             catch (Exception e)

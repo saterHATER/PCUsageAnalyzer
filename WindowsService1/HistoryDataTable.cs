@@ -101,7 +101,7 @@ namespace WindowsService1
                     if (_lastRecordTime == lastTimeStamp) return Convert.ToInt32(
                         row.ItemArray[_index["Row Number"]].ToString());
                     //^that line is essentially getting the row# that it's looking for...
-                    Console.WriteLine("timestamp '{0}' didn't match _lastRecordTime '{1}'", lastTimeStamp, _lastRecordTime);
+                    //Console.WriteLine("timestamp '{0}' didn't match _lastRecordTime '{1}'", lastTimeStamp, _lastRecordTime);
                     rowCount++;
                 }
                 return -1;
@@ -206,7 +206,7 @@ namespace WindowsService1
         }
 
 
-        public void ReplaceDataTable(DataTable newDT)
+        public void IntegrateDataTable(DataTable newDT)
         {
             _ProgramHistory = newDT;
         }
