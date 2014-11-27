@@ -61,7 +61,6 @@ namespace WindowsService1
 
 
         private static void AddDataTable(HistoryDataTable dt)
-        //no. Fuck that. Do better than that fuckery.
         {
             try
             {
