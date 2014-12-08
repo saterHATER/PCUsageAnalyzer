@@ -83,8 +83,8 @@ namespace WindowsService1
         {
             try
             {
-                String now = DateTime.Now.TimeOfDay.ToString();     //I'm gonna need to change the 
-                now = now.Substring(0, 8);                          //datatable if the day changes
+                DateTime now = DateTime.Now;     //I'm gonna need to change the 
+                //now = now.Substring(0, 8);     //datatable if the day changes
 
                 Process[] processlist = Process.GetProcesses();
 
@@ -92,14 +92,17 @@ namespace WindowsService1
                 {
                     if (!String.IsNullOrEmpty(process.MainWindowTitle))
                     {
-                        _currentUser.record(process.ProcessName, now);
+                        string testies = process.ProcessName;
+                        _currentUser.record(process, now);
                     }
                 }
                 Console.WriteLine(_currentUser.GetTableTitle());
                 _currentUser.print();
                 _currentUser.updateLastRecordTime(now);
                 //AddDataTable(_currentUser.ReturnDT());//currently debuging this shit
-                WriteDataSet();
+                Console.WriteLine("KA{");
+                WriteDataSet();//BUSTED! (I can't write a System.Diagnostics.Process to an XML file)
+                Console.WriteLine("}Bewm");
             }
             catch (Exception e)
             {

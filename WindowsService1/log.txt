@@ -1,0 +1,5 @@
+﻿12/01/14:	Ok, I don't quite have a clear vision of what I'm doing, so I'll just move on an 
+			initiative I had of turning all of those string dates into datetimes.
+12/07/14:	I've done enough troubleshooting to figure out the problem: processes don't go 
+			over to xml files very well. I'll need to convert processes to strings/datetimes
+			as I go.(Or come up with a better solution for file writing) Yippee!

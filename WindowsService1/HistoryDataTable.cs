@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -40,6 +41,12 @@ namespace WindowsService1
             _index.Add("End Time", 3);
             _ProgramHistory.Columns.Add("End Time", typeof(String));    //row 3
 
+            _index.Add("Process", 4);
+            _ProgramHistory.Columns.Add("Process", typeof(Process));    //test1
+
+            _index.Add("DateTime", 5);
+            _ProgramHistory.Columns.Add("DateTime", typeof(DateTime));  //test2
+
             _ProgramHistory.TableName = "History_" + Environment.UserName.ToString();
             _ProgramHistory.ExtendedProperties.Add("End Date", DateTime.Now.ToString().Substring(0, 8));
             _ProgramHistory.ExtendedProperties.Add("User Name", Environment.UserName);
@@ -55,41 +62,53 @@ namespace WindowsService1
         }
 
 
-        public void record(String processName, String time)
-            /* I'll take a process, date (as a formatted int, I hate that idea)
-             * and I'll selectively add it into the data table, this should
-             * hopfully allow for total analysis of program usage */
+        public void record(Process process, DateTime now)
+            //takes a process and a date and adds it to the list for this user.
         {
+            String processName = process.ProcessName;
             List<DataRow> matchingRows = rowsWithName(processName);
+            String time = now.ToString().Substring(9, 8);
 
-            if (matchingRows.Count == 0)
+            try
+            {
+                if (matchingRows.Count == 0)
                 //if there are no entries with the corresponding process name...
-            {
-                _ProgramHistory.Rows.Add(_ProgramHistory.Rows.Count, processName, time, time);
-            }
-            else 
-            {
-                int rowNumber = recordingInProgress(matchingRows);//it's partially this.
-                //the rowNumber 'nabbed from this is farsicle. I need that fixed.
-                
-                if (rowNumber == -1)
-                    //In this case I must simply add a new row...
                 {
-                    _ProgramHistory.Rows.Add(_ProgramHistory.Rows.Count, processName, time, time);//NEEDS A FIXIN'
+                    Console.Write(_ProgramHistory.Columns.Count +" Ping-");
+                    _ProgramHistory.Rows.Add(_ProgramHistory.Rows.Count, processName, time, time, process, now);
+                    Console.WriteLine("Pong: " + processName);
                 }
                 else
-                    // This is the case where we've got a program currently running
                 {
-                    _ProgramHistory.Rows[rowNumber]["End Time"] = time;
+                    int rowNumber = recordingInProgress(matchingRows);//it's partially this.
+                    //the rowNumber 'nabbed from this is farsicle. I need that fixed.
+
+                    if (rowNumber == -1)
+                    //In this case I must simply add a new row...
+                    {
+                        Console.Write(_ProgramHistory.Columns.Count + " Tic"); //GOTCHA! (This is where the error is happeneing...right now)
+                        _ProgramHistory.Rows.Add(_ProgramHistory.Rows.Count, processName, time, time, process, now);//NEEDS A FIXIN'
+                        Console.WriteLine("Tock: " + processName);
+                    }
+                    else
+                    // This is the case where we've got a program currently running
+                    {
+                        Console.Write("NEVER");
+                        _ProgramHistory.Rows[rowNumber]["End Time"] = time;
+                        Console.WriteLine("MORE" + processName);
+                    }
                 }
+                Console.WriteLine("Done adding: " + processName);
+                _ProgramHistory.ExtendedProperties["EndDate"] = DateTime.Now;//update last touch time....
             }
-            _ProgramHistory.ExtendedProperties["EndDate"] = DateTime.Now;//update last touch time....
+            catch (Exception e)
+            {
+                Console.WriteLine("ERROR IN WRITING TO DT: " + e.Message);
+            }
         }
 
 
         private static int recordingInProgress(List<DataRow> matchingRows)
-            //It's supposed to return the row # where the matching row sits.
-            // It doesn't...yet.-->this should be a string
         {
             int rowCount = 0;
             try
@@ -117,9 +136,10 @@ namespace WindowsService1
         }
 
 
-        public void updateLastRecordTime(String time)
+        public void updateLastRecordTime(DateTime time)
         {
-            _lastRecordTime = time;
+            String now = time.TimeOfDay.ToString().Substring(0, 8);
+            _lastRecordTime = now;
             _ProgramHistory.ExtendedProperties["End Time"] = time;
         }
 
@@ -181,8 +201,8 @@ namespace WindowsService1
                 String StartTime = row.ItemArray[_index["Start Time"]].ToString();
                 String EndTime = row.ItemArray[_index["End Time"]].ToString();
                 UsageTime += timeDifference(StartTime, EndTime);
-            }   
-            return UsageTime;
+            }
+                return UsageTime;
         }
 
 
