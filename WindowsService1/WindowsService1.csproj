@@ -46,7 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EssentialValues.cs" />
+    <Compile Include="PenaltyValues.cs" />
     <Compile Include="HistoryStorage.cs" />
     <Compile Include="HistoryDataTable.cs" />
     <Compile Include="ComputerManager.cs" />

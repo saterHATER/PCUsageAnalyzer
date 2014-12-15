@@ -7,166 +7,61 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-//here's a thought. Compare the PID's. Clever. Maybe later
-
 namespace WindowsService1
 {
     
     class HistoryDataTable
-        /* This class is keeping a datatable of the history of all major app usage
-         * I need to work on this. There's much to be decided on how to do this... */
     {
 
         private static DataTable _ProgramHistory;
 
-        private static String _lastRecordTime;
-
-        private static Dictionary<String, int> _index; //this keeps track of rows by title;
-
         static HistoryDataTable()
-            /* I'm initializing the datatable and setting the rows.*/
         {
-            _ProgramHistory = new DataTable("current_Filings");
-            _index = new Dictionary<string,int>();
- 
-            _index.Add("Row Number", 0);
-            _ProgramHistory.Columns.Add("Row Number", typeof(int));     //row 0
+            _ProgramHistory = new DataTable("Current_Filings");
             
-            _index.Add("Program Name", 1);
-            _ProgramHistory.Columns.Add("Program Name", typeof(String));//row 1
+            //ROWS
+            _ProgramHistory.Columns.Add("Row Number", typeof(int));         //row 0
+            _ProgramHistory.Columns.Add("Program Name", typeof(String));    //row 1
+            _ProgramHistory.Columns.Add("Process ID", typeof(int));         //row 2
+            _ProgramHistory.Columns.Add("DateTime", typeof(DateTime));      //row 3
+            _ProgramHistory.Columns.Add("Process Start", typeof(DateTime)); //row 4
 
-            _index.Add("Start Time", 2);
-            _ProgramHistory.Columns.Add("Start Time", typeof(String));  //row 2
-
-            _index.Add("End Time", 3);
-            _ProgramHistory.Columns.Add("End Time", typeof(String));    //row 3
-
-            _index.Add("Process", 4);
-            _ProgramHistory.Columns.Add("Process", typeof(Process));    //test1
-
-            _index.Add("DateTime", 5);
-            _ProgramHistory.Columns.Add("DateTime", typeof(DateTime));  //test2
-
+            //PROPERTIES
             _ProgramHistory.TableName = "History_" + Environment.UserName.ToString();
-            _ProgramHistory.ExtendedProperties.Add("End Date", DateTime.Now.ToString().Substring(0, 8));
-            _ProgramHistory.ExtendedProperties.Add("User Name", Environment.UserName);
-            _ProgramHistory.ExtendedProperties.Add("Login Periods", 0);
-
-            _lastRecordTime = "";
+            _ProgramHistory.ExtendedProperties.Add("Start Date", DateTime.Now.ToString());
+            _ProgramHistory.ExtendedProperties.Add("End Date", DateTime.Now.ToString());
+            _ProgramHistory.ExtendedProperties.Add("User Name", Environment.UserName.ToString());
+            _ProgramHistory.ExtendedProperties.Add("Load Counts", (int) 0);//I STILL NEED TO ADD THIS
         }
 
-
-        public String GetTableTitle()
+        public String Title()
         {
             return _ProgramHistory.TableName.ToString();
         }
 
-
         public void record(Process process, DateTime now)
-            //takes a process and a date and adds it to the list for this user.
         {
-            String processName = process.ProcessName;
-            List<DataRow> matchingRows = rowsWithName(processName);
-            String time = now.ToString().Substring(9, 8);
-
             try
             {
-                if (matchingRows.Count == 0)
-                //if there are no entries with the corresponding process name...
+                String processName = process.ProcessName;
+                String time = now.ToString().Substring(9, 8);
+
+                int rowMatch = GetIndex((int)process.Id);
+                if (rowMatch == -1)
                 {
-                    Console.Write(_ProgramHistory.Columns.Count +" Ping-");
-                    _ProgramHistory.Rows.Add(_ProgramHistory.Rows.Count, processName, time, time, process, now);
-                    Console.WriteLine("Pong: " + processName);
+                    _ProgramHistory.Rows.Add(_ProgramHistory.Rows.Count, processName, process.Id, now, process.StartTime);
                 }
                 else
                 {
-                    int rowNumber = recordingInProgress(matchingRows);//it's partially this.
-                    //the rowNumber 'nabbed from this is farsicle. I need that fixed.
-
-                    if (rowNumber == -1)
-                    //In this case I must simply add a new row...
-                    {
-                        Console.Write(_ProgramHistory.Columns.Count + " Tic"); //GOTCHA! (This is where the error is happeneing...right now)
-                        _ProgramHistory.Rows.Add(_ProgramHistory.Rows.Count, processName, time, time, process, now);//NEEDS A FIXIN'
-                        Console.WriteLine("Tock: " + processName);
-                    }
-                    else
-                    // This is the case where we've got a program currently running
-                    {
-                        Console.Write("NEVER");
-                        _ProgramHistory.Rows[rowNumber]["End Time"] = time;
-                        Console.WriteLine("MORE" + processName);
-                    }
+                    _ProgramHistory.Rows[rowMatch]["DateTime"] = now;
                 }
-                Console.WriteLine("Done adding: " + processName);
-                _ProgramHistory.ExtendedProperties["EndDate"] = DateTime.Now;//update last touch time....
+                _ProgramHistory.ExtendedProperties["End Date"] = now.ToString();//update last touch time....
             }
             catch (Exception e)
             {
                 Console.WriteLine("ERROR IN WRITING TO DT: " + e.Message);
             }
         }
-
-
-        private static int recordingInProgress(List<DataRow> matchingRows)
-        {
-            int rowCount = 0;
-            try
-            {
-                foreach (DataRow row in matchingRows)
-                {
-                    String lastTimeStamp = row.ItemArray[_index["End Time"]].ToString();
-
-                    if (_lastRecordTime == lastTimeStamp) return Convert.ToInt32(
-                        row.ItemArray[_index["Row Number"]].ToString());
-                    //^that line is essentially getting the row# that it's looking for...
-                    //Console.WriteLine("timestamp '{0}' didn't match _lastRecordTime '{1}'", lastTimeStamp, _lastRecordTime);
-                    rowCount++;
-                }
-                return -1;
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine();
-                Console.WriteLine("~~~~~~SOMETHING HAPPENED WHEN COMPARING END-TIMES~~~~~~");
-                Console.WriteLine(e.Message.ToString());
-                Console.WriteLine();
-                return -1;
-            }
-        }
-
-
-        public void updateLastRecordTime(DateTime time)
-        {
-            String now = time.TimeOfDay.ToString().Substring(0, 8);
-            _lastRecordTime = now;
-            _ProgramHistory.ExtendedProperties["End Time"] = time;
-        }
-
-
-        private static List<DataRow> rowsWithName(String processName)
-            //Now here's where I'm going to get all of my datarows 
-            //with a matching process name
-        {
-            List<DataRow> foundRows = new List<DataRow>();
-            try 
-            {
-                foreach (DataRow row in _ProgramHistory.Rows)
-                {
-                    String pName = row.ItemArray[_index["Program Name"]].ToString();
-                    if (pName == processName)
-                    {
-                        foundRows.Add(row);
-                    }
-                }
-                return foundRows;
-            }
-            catch
-            {
-                return foundRows;
-            }
-        }
-
 
         public void print()
         {
@@ -188,45 +83,26 @@ namespace WindowsService1
             }
         }
 
-
-        public int UsageTotals(String DisiredApp)
-            /* This method outputs the total seconds a program has run
-             * Because I'm stupid, I need to deliniate each hour, minute and second*/
+        private int GetIndex(int pid)
         {
-            List<DataRow> MatchingRows = rowsWithName(DisiredApp);
-            int UsageTime = 0;
-
-            foreach (DataRow row in MatchingRows)
+            foreach (DataRow row in _ProgramHistory.Rows)
             {
-                String StartTime = row.ItemArray[_index["Start Time"]].ToString();
-                String EndTime = row.ItemArray[_index["End Time"]].ToString();
-                UsageTime += timeDifference(StartTime, EndTime);
+                int contender = int.Parse(row["Process ID"].ToString());
+                if (pid == contender)
+                {
+                    int rowLocation = int.Parse(row["Row Number"].ToString());
+                    return rowLocation;
+                }
             }
-                return UsageTime;
+            return (int)(-1);
         }
 
-
-        private static int timeDifference(string BeginTime, string EndTime)
-        {
-            int hour = (Convert.ToInt32(EndTime.Substring(0, 2))) 
-                - (Convert.ToInt32(BeginTime.Substring(0, 2)));
-            hour = hour * 3600;
-            int min = (Convert.ToInt32(EndTime.Substring(3, 2))) 
-                - (Convert.ToInt32(BeginTime.Substring(3, 2)));
-            min = min * 60;
-            int sec = (Convert.ToInt32(EndTime.Substring(6, 2))) 
-                - (Convert.ToInt32(BeginTime.Substring(6, 2)));
-            return hour+sec+min;
-        }
-
-
-        public DataTable ReturnDT()
+        public DataTable GetDataTable()
         {
             return _ProgramHistory;
         }
 
-
-        public void IntegrateDataTable(DataTable newDT)
+        public void InsertDataTable(DataTable newDT)
         {
             _ProgramHistory = newDT;
         }

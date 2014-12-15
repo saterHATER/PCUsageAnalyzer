@@ -3,3 +3,35 @@
 12/07/14:	I've done enough troubleshooting to figure out the problem: processes don't go 
 			over to xml files very well. I'll need to convert processes to strings/datetimes
 			as I go.(Or come up with a better solution for file writing) Yippee!
+12/08/14:	I've taken care of the issue of sampling again, now what's left is the dreadful 
+			task of fixing the matching equation again. Yuch!
+			A seriouse problem arrises: Do I log a process from its epoch? (this doesn't include
+			shutdown time) I say yes!
+			I've finished the task of including all important atributes of a system.process to my
+			DT. Now I'm moving on to the terrifying task of replacing the addition mechanism I 
+			currently have. Ouch...hmm, well. That wasn't so bad. Lets take a break, shall we?
+12/09/14:	I realized I only need 1 datastructure for point deductions and bonuses. I'll have 
+			to write out my idea for a deduction calculator outfit quickly before the whole idea
+			take a 180...Oh crap, I ran in to a brain twister. I might've fixed it...Nope, still
+			Getting thrown for loops.
+12/10/14:	Struggling to get my new proposal off the ground. Man, I need a whiteboard. but
+			I think I've got it now. D'OH! the current datastructure doesn't account for various
+			programs...But I have an idea...
+12/11/14:	I spend most of today weeding out a problem with depreciating the old string-formatted
+			program start times. Now I'm onto implementing my new datastructure! but before that, 
+			I need to take a serious invintory of my spec-vals in the DT. Spec values sorted a bit.
+			I added a dictionary of my new Data structure. So yeah, step 1.
+			New problem: Can I save Extended properties in XML???????
+12/13/14:	EVERY TIME I come back to this I wre-write everything! hot-damn! this is hard.
+			So what I'm doning now is ding a datatable. It's got 8 columns, 1 for the procname,
+			7 for the days. each entry is going to have a dataset for the times and value. I'm 
+			putting that all together now... But I'm going to need internet access. Jesus, I can't 
+			do this when I don't trust the wifi. Damn.
+12/14/14:	I'm sticking with the current schema of making a new DT for penalties. So far so good.
+			I'll need to work on returning a value for the penalty for a specific program...done!
+			Allright, lets address the issue of the _index of DT's being lost. if it's no
+			problem, then move on to adding the Penalties DT to the CPmanager for testing.
+			Turns out, I'm not using the _index in the same way, I'll just have to use the
+			HasRow function. A minor problem is that I didn't add a row# column. Drats.'
+			Allright, I need to integrate/test the new DT, I'm neverous :(
+			I've cleaned up the classes a bit, so I'll get to testing shortly, wish me luck.

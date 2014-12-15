@@ -12,39 +12,24 @@ namespace WindowsService1
     class HistoryStorage
     {
         private static DataSet _History;
-
-        private static String _FilePath = AppDomain.CurrentDomain.BaseDirectory + "\\sample.xml";
-
-        private static HistoryDataTable _currentUser;
-
-        private static String DTName = "History_" + Environment.UserName.ToString();
+        private static HistoryDataTable _CurrentUserHistory;
+        private static PenaltyValues _CurrentUserPenalties; //new edit
+        private static String _FilePath = AppDomain.CurrentDomain.BaseDirectory + "\\record.xml";
 
         static HistoryStorage()
         {
             try
             {
                 _History = new DataSet();
-                _currentUser = new HistoryDataTable();
+                _CurrentUserHistory = new HistoryDataTable();
+                _CurrentUserPenalties = new PenaltyValues();
 
                 if (File.Exists(@_FilePath))
                 {
-                    Console.WriteLine("It exists!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!#############");
-                    try
-                    {
-                        _History.ReadXml(_FilePath);
-                        Console.WriteLine("~~~~~Loading...~~~~~");
-                        
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine("~~~~~~~~~");
-                        Console.WriteLine("~~~~~~~~~");
-                        Console.WriteLine(e.Message.ToString());
-                        Console.WriteLine("~~~~~~~~~");
-                        Console.WriteLine("~~~~~~~~~");
-                    }
+                    _History.ReadXml(_FilePath);
                 }
-                AddDataTable(_currentUser);
+                AddHistory();
+                AddPenalties();
                 WriteDataSet();
             }
             catch (Exception e)
@@ -53,24 +38,20 @@ namespace WindowsService1
             }
         }
 
-
-        private static void WriteDataSet()
-        {
-            _History.WriteXml(_FilePath);
-        }
-
-
-        private static void AddDataTable(HistoryDataTable dt)
+        private static void AddHistory()
         {
             try
             {
-                String targetDT = dt.ReturnDT().TableName.ToString();
-                if (_History.Tables.Contains(targetDT))
+                String CurrentName = _CurrentUserHistory.Title();
+                if (_History.Tables.Contains(CurrentName))
                 {
-                    dt.IntegrateDataTable(_History.Tables[targetDT]);
-                    _History.Tables.Remove(targetDT);
+                    _CurrentUserHistory.InsertDataTable(_History.Tables[CurrentName]);
+                    //give _CurrentUserHistory what _history had
+                    _History.Tables.Remove(CurrentName);
+                    //Purge _history, for some reason....
                 }
-                _History.Tables.Add(dt.ReturnDT());
+                _History.Tables.Add(_CurrentUserHistory.GetDataTable());
+                //insert newly created datatable into the dataset freshly devoid of a datatable
             }
             catch (Exception e)
             {
@@ -78,14 +59,29 @@ namespace WindowsService1
             }
         }
 
+        private static void AddPenalties()
+        {
+            try
+            {
+                String CurrentName = _CurrentUserPenalties.Title();
+                if (_History.Tables.Contains(CurrentName))
+                {
+                    _CurrentUserPenalties.InsertDataTable(_History.Tables[CurrentName]);
+                    _History.Tables.Remove(CurrentName);
+                }
+                _History.Tables.Add(_CurrentUserPenalties.GetDataTable());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error in adding DT(p): " + e.Message.ToString());
+            }
+        }
 
         public void sample()
         {
             try
             {
-                DateTime now = DateTime.Now;     //I'm gonna need to change the 
-                //now = now.Substring(0, 8);     //datatable if the day changes
-
+                DateTime now = DateTime.Now;
                 Process[] processlist = Process.GetProcesses();
 
                 foreach (Process process in processlist)
@@ -93,16 +89,12 @@ namespace WindowsService1
                     if (!String.IsNullOrEmpty(process.MainWindowTitle))
                     {
                         string testies = process.ProcessName;
-                        _currentUser.record(process, now);
+                        _CurrentUserHistory.record(process, now);
                     }
                 }
-                Console.WriteLine(_currentUser.GetTableTitle());
-                _currentUser.print();
-                _currentUser.updateLastRecordTime(now);
-                //AddDataTable(_currentUser.ReturnDT());//currently debuging this shit
-                Console.WriteLine("KA{");
-                WriteDataSet();//BUSTED! (I can't write a System.Diagnostics.Process to an XML file)
-                Console.WriteLine("}Bewm");
+                Console.WriteLine(_CurrentUserHistory.Title());
+                _CurrentUserHistory.print();
+                WriteDataSet();
             }
             catch (Exception e)
             {
@@ -110,20 +102,10 @@ namespace WindowsService1
             }
         }
 
-
-        public Dictionary<String, int> Report(List<string> AppsInQuestion)
-            //put a stanza in for if AppsInQuestion is null
+        private static void WriteDataSet()
         {
-            Dictionary<String, int> output = new Dictionary<string, int>();
-
-            foreach (string app in AppsInQuestion.ToArray())
-            {
-                output.Add(app, _currentUser.UsageTotals(app));
-            }
-
-            return output;
+            _History.WriteXml(_FilePath);
         }
-
 
     }
 }

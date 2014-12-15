@@ -14,8 +14,7 @@ namespace WindowsService1
 {
     class ComputerManager
     /* This will be what physically gather's up all programs, logs out the user, keeps
-     * track of the bad stuff being consumed...etc.
-     */
+     * track of the bad stuff being consumed...etc. */
     {
         private static HistoryDataTable _History;      //This keeps track of the program usage.
 
@@ -28,7 +27,7 @@ namespace WindowsService1
         {
             _testDS = new HistoryStorage();
             //_History = new HistoryDataTable();
-            //_testDS.AddDataTable(_History.ReturnDT());
+            //_testDS.AddHistory(_History.GetDataTable());
         }
 
 
