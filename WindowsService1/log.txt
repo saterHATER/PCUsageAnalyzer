@@ -35,3 +35,8 @@
 			HasRow function. A minor problem is that I didn't add a row# column. Drats.'
 			Allright, I need to integrate/test the new DT, I'm neverous :(
 			I've cleaned up the classes a bit, so I'll get to testing shortly, wish me luck.
+12/15/14:	So...yeah, testing...It went as horribly as I expected. no matter. I'll see if I 
+			can't Serialize A list of ints/doubles, because that may work as well. Nope, this 
+			is pretty bad. I'll have to save my data some other way or find a new file-writer
+			(going with the latter)...Too hard, I'll write all my stupid data to a supid
+			string :<

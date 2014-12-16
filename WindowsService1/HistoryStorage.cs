@@ -90,10 +90,10 @@ namespace WindowsService1
                     {
                         string testies = process.ProcessName;
                         _CurrentUserHistory.record(process, now);
+                        _CurrentUserPenalties.AddNewProgram(process.ProcessName);
                     }
                 }
-                Console.WriteLine(_CurrentUserHistory.Title());
-                _CurrentUserHistory.print();
+                Console.WriteLine(_History.GetXml() + "\n \n");
                 WriteDataSet();
             }
             catch (Exception e)
