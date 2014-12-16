@@ -39,4 +39,5 @@
 			can't Serialize A list of ints/doubles, because that may work as well. Nope, this 
 			is pretty bad. I'll have to save my data some other way or find a new file-writer
 			(going with the latter)...Too hard, I'll write all my stupid data to a supid
-			string :<
+			string :< 
+			It's working now, I have to find the bug that keeps it from detecting identical lines'

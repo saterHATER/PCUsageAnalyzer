@@ -14,7 +14,8 @@ namespace WindowsService1
         private static DataSet _History;
         private static HistoryDataTable _CurrentUserHistory;
         private static PenaltyValues _CurrentUserPenalties; //new edit
-        private static String _FilePath = AppDomain.CurrentDomain.BaseDirectory + "\\record.xml";
+        private static String _FilePath = AppDomain.CurrentDomain.BaseDirectory 
+            + "\\record.xml";
 
         static HistoryStorage()
         {
@@ -23,6 +24,8 @@ namespace WindowsService1
                 _History = new DataSet();
                 _CurrentUserHistory = new HistoryDataTable();
                 _CurrentUserPenalties = new PenaltyValues();
+
+                Console.WriteLine("\n \n" + String.Compare("Identical", "Identical") + "\n \n");
 
                 if (File.Exists(@_FilePath))
                 {
@@ -83,7 +86,6 @@ namespace WindowsService1
             {
                 DateTime now = DateTime.Now;
                 Process[] processlist = Process.GetProcesses();
-
                 foreach (Process process in processlist)
                 {
                     if (!String.IsNullOrEmpty(process.MainWindowTitle))
