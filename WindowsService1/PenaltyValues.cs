@@ -11,6 +11,8 @@ namespace WindowsService1
     class PenaltyValues
     {
         private static DataTable _PenaltyWeek;
+        private static char _esep = ' ';
+        private static char _vsep = '#';
 
         public PenaltyValues()
         {
@@ -32,7 +34,7 @@ namespace WindowsService1
         {
             foreach (DataRow row in _PenaltyWeek.Rows)
             {
-                if (row.ItemArray[0].Equals(program))
+                if (row["Program Name"].Equals(program))
                 {
                     Console.WriteLine("Bull!! {0} is allready in this DT!", program);
                     return;
@@ -41,13 +43,13 @@ namespace WindowsService1
             _PenaltyWeek.Rows.Add(
                 _PenaltyWeek.Rows.Count,    //row cout
                 program,                    //program name
-                "0-0.0",                    //Sunday
-                "0-0.0",                    //Monday
-                "0-0.0",                    //Tuesday
-                "0-0.0",                    //Wednesday
-                "0-0.0",                    //Thursday
-                "0-0.0",                    //Friday
-                "0-0.0");                   //Saturday
+                "0" + _vsep + "0.0",        //Sunday
+                "0" + _vsep + "0.0",        //Monday
+                "0" + _vsep + "0.0",        //Tuesday
+                "0" + _vsep + "0.0",        //Wednesday
+                "0" + _vsep + "0.0",        //Thursday
+                "0" + _vsep + "0.0",        //Friday
+                "0" + _vsep + "0.0");       //Saturday
         }
 
         public void UpdateProgram(String program, int day, int start, int end, double value)
@@ -56,9 +58,9 @@ namespace WindowsService1
             if (index > (-1))
             {
                 String currentEntry = _PenaltyWeek.Rows[index][(day + 2)].ToString();
-                currentEntry += " " + start.ToString() + "-" + value.ToString();
+                currentEntry += _esep + start.ToString() + _vsep + value.ToString();
                 value = value * (-1.0);
-                currentEntry += " " + end.ToString() + "-" + value.ToString();
+                currentEntry += _esep + end.ToString() + _vsep + value.ToString();
                 _PenaltyWeek.Rows[index][(day + 2)] = currentEntry;
             }
             else
@@ -75,9 +77,9 @@ namespace WindowsService1
             {
                 int minute = (int)time.Minute;
                 String entries = _PenaltyWeek.Rows[index][((int)time.DayOfWeek + 2)].ToString();
-                foreach (String entry in entries.Split(' '))
+                foreach (String entry in entries.Split(_esep))
                 {
-                    String[] values = entry.Split('-');
+                    String[] values = entry.Split(_vsep);
                     int key = int.Parse(values[0]);
                     if (key <= minute)
                     {
@@ -96,10 +98,10 @@ namespace WindowsService1
         {
             foreach (DataRow row in _PenaltyWeek.Rows)
             {
-                String selection = row.ItemArray[1].ToString();
+                String selection = row["Program Name"].ToString();
                 if (String.Compare(program,selection)==0)
                 {
-                    int rowLocation = (int) row.ItemArray[0];
+                    int rowLocation = int.Parse(row["Row Number"].ToString());
                     return rowLocation;
                 }
             }

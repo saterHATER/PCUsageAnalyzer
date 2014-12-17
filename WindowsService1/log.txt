@@ -41,3 +41,6 @@
 			(going with the latter)...Too hard, I'll write all my stupid data to a supid
 			string :< 
 			It's working now, I have to find the bug that keeps it from detecting identical lines'
+12/16/14	Fixed the issue, now It's on to testing the UP function and eventually the RP thing
+			I've testing everything and it looks fine. Now i'm on to implementing more advanced
+			instances. BTW: datetime.timeofday.totalminutes is a double...huh.

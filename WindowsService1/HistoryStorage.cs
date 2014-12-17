@@ -25,14 +25,18 @@ namespace WindowsService1
                 _CurrentUserHistory = new HistoryDataTable();
                 _CurrentUserPenalties = new PenaltyValues();
 
-                Console.WriteLine("\n \n" + String.Compare("Identical", "Identical") + "\n \n");
-
                 if (File.Exists(@_FilePath))
                 {
                     _History.ReadXml(_FilePath);
                 }
                 AddHistory();
                 AddPenalties();
+                int day = (int)DateTime.Now.DayOfWeek;
+                double start = DateTime.Now.TimeOfDay.TotalMinutes;
+                int end = start + 1;
+                Double val = 0.03;
+                Console.WriteLine("\n \n now: {2} start: {0} \n end: {1} \n", start, end, DateTime.Now.ToString());
+                _CurrentUserPenalties.UpdateProgram("MobaXterm", day, start, end, val);
                 WriteDataSet();
             }
             catch (Exception e)
@@ -93,6 +97,7 @@ namespace WindowsService1
                         string testies = process.ProcessName;
                         _CurrentUserHistory.record(process, now);
                         _CurrentUserPenalties.AddNewProgram(process.ProcessName);
+                        Console.WriteLine(_CurrentUserPenalties.ReturnPenalty("MobaXterm", DateTime.Now));
                     }
                 }
                 Console.WriteLine(_History.GetXml() + "\n \n");
