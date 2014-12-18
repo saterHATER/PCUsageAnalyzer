@@ -91,13 +91,27 @@ namespace WindowsService1
             {
                 DateTime now = DateTime.Now;
                 Process[] processlist = Process.GetProcesses();
+                
+                int isWindows = String.Compare(Environment.OSVersion.ToString(),"Microsoft Windows NT 6.1.7601 Service Pack 1");
                 foreach (Process process in processlist)
                 {
-                    if (!String.IsNullOrEmpty(process.MainWindowTitle))
+                    if (isWindows==0)
                     {
-                        string testies = process.ProcessName;
-                        _CurrentUserHistory.record(process, now);
-                        _CurrentUserPenalties.AddNewProgram(process.ProcessName);
+                        if (!String.IsNullOrEmpty(process.MainWindowTitle))
+                        {
+                            string testies = process.ProcessName;
+                            _CurrentUserHistory.record(process, now);
+                            _CurrentUserPenalties.AddNewProgram(process.ProcessName);
+                        } 
+                    }
+                    else
+                    {
+                        if (!(String.Compare(process.MainWindowTitle,"Null")==0))
+                        {
+                            string testies = process.ProcessName;
+                            _CurrentUserHistory.record(process, now);
+                            _CurrentUserPenalties.AddNewProgram(process.ProcessName);
+                        }                         
                     }
                 }
                 Console.WriteLine("Looking for: {0}, it's currently {1}", start, now.TimeOfDay.TotalMinutes);
