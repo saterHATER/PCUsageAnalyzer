@@ -36,7 +36,7 @@ namespace WindowsService1
             {
                 if (row["Program Name"].Equals(program))
                 {
-                    Console.WriteLine("Bull!! {0} is allready in this DT!", program);
+                    //Console.WriteLine("Bull!! {0} is allready in this DT!", program);
                     return;
                 }
             }
@@ -63,10 +63,10 @@ namespace WindowsService1
                 currentEntry += _esep + end.ToString() + _vsep + value.ToString();
                 _PenaltyWeek.Rows[index][(day + 2)] = currentEntry;
             }
-            else
-            {
-                Console.WriteLine("Bull!! {0} is not in this DT!", program);
-            }
+            //else
+            //{
+            //    Console.WriteLine("Bull!! {0} is not in this DT!", program);
+            //}
         }
 
         public double ReturnPenalty(String program, DateTime time)
@@ -75,7 +75,7 @@ namespace WindowsService1
             int index = IndexOfRow(program);
             if (index > (-1))
             {
-                int minute = (int)time.Minute;
+                int minute = (int) time.TimeOfDay.TotalMinutes;
                 String entries = _PenaltyWeek.Rows[index][((int)time.DayOfWeek + 2)].ToString();
                 foreach (String entry in entries.Split(_esep))
                 {
@@ -87,10 +87,10 @@ namespace WindowsService1
                     }
                 }
             }
-            else
-            {
-                Console.WriteLine("Bull!! {0} is not in this DT!", program);
-            }
+            //else
+            //{
+            //    Console.WriteLine("Bull!! {0} is not in this DT!", program);
+            //}
             return penalty;
         }
 

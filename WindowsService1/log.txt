@@ -44,3 +44,5 @@
 12/16/14	Fixed the issue, now It's on to testing the UP function and eventually the RP thing
 			I've testing everything and it looks fine. Now i'm on to implementing more advanced
 			instances. BTW: datetime.timeofday.totalminutes is a double...huh.
+12/17/14	Aight, I successfully tested the calculatin portion of the penalties. ALl good. 
+			Now I think I have to move to the task of adding a gui. Oh god, please help me 

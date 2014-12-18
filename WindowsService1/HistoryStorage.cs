@@ -16,6 +16,7 @@ namespace WindowsService1
         private static PenaltyValues _CurrentUserPenalties; //new edit
         private static String _FilePath = AppDomain.CurrentDomain.BaseDirectory 
             + "\\record.xml";
+        private static int start = (int)DateTime.Now.TimeOfDay.TotalMinutes;
 
         static HistoryStorage()
         {
@@ -32,11 +33,11 @@ namespace WindowsService1
                 AddHistory();
                 AddPenalties();
                 int day = (int)DateTime.Now.DayOfWeek;
-                double start = DateTime.Now.TimeOfDay.TotalMinutes;
+                //int start = (int) DateTime.Now.TimeOfDay.TotalMinutes;
                 int end = start + 1;
                 Double val = 0.03;
-                Console.WriteLine("\n \n now: {2} start: {0} \n end: {1} \n", start, end, DateTime.Now.ToString());
-                _CurrentUserPenalties.UpdateProgram("MobaXterm", day, start, end, val);
+                Console.WriteLine("\n \n now: {2} \n start: {0} \n end: {1} \n", start, end, DateTime.Now.ToString());
+                _CurrentUserPenalties.UpdateProgram("OUTLOOK", day, start, end, val);
                 WriteDataSet();
             }
             catch (Exception e)
@@ -97,10 +98,11 @@ namespace WindowsService1
                         string testies = process.ProcessName;
                         _CurrentUserHistory.record(process, now);
                         _CurrentUserPenalties.AddNewProgram(process.ProcessName);
-                        Console.WriteLine(_CurrentUserPenalties.ReturnPenalty("MobaXterm", DateTime.Now));
                     }
                 }
-                Console.WriteLine(_History.GetXml() + "\n \n");
+                Console.WriteLine("Looking for: {0}, it's currently {1}", start, now.TimeOfDay.TotalMinutes);
+                Console.WriteLine(_CurrentUserPenalties.ReturnPenalty("OUTLOOK", DateTime.Now));
+                //Console.WriteLine(_History.GetXml() + "\n \n");
                 WriteDataSet();
             }
             catch (Exception e)
@@ -108,11 +110,5 @@ namespace WindowsService1
                 Console.WriteLine("ERROR IN SAMPLE: \n" + e.Message.ToString());
             }
         }
-
-        private static void WriteDataSet()
-        {
-            _History.WriteXml(_FilePath);
-        }
-
     }
 }
