@@ -110,5 +110,11 @@ namespace WindowsService1
                 Console.WriteLine("ERROR IN SAMPLE: \n" + e.Message.ToString());
             }
         }
+
+        private static void WriteDataSet()
+        {
+            _History.WriteXml(_FilePath);
+        }
+
     }
 }
