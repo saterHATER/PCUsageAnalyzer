@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Data;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Management;
 
 
 namespace WindowsService1
@@ -23,7 +24,7 @@ namespace WindowsService1
         public void sample()
         {
             _DataSetManager.sample();
-        }
+        } 
 
         private static void CutOffUser()
         {
