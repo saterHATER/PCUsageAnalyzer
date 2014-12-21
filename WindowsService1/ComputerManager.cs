@@ -8,6 +8,7 @@ using System.Data;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Management;
+using System.Windows.Forms;
 
 
 namespace WindowsService1
@@ -19,6 +20,7 @@ namespace WindowsService1
         static ComputerManager()
         {
             _DataSetManager = new HistoryStorage();
+            Application.Run(new PenaltyCreator());
         }
 
         public void sample()

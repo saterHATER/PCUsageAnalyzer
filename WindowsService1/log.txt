@@ -46,3 +46,6 @@
 			instances. BTW: datetime.timeofday.totalminutes is a double...huh.
 12/17/14	Aight, I successfully tested the calculatin portion of the penalties. ALl good. 
 			Now I think I have to move to the task of adding a gui. Oh god, please help me 
+12/20/14	I've started on the form design and I allready want to re-do everything. Figures. 
+			Currently I'm looking to make this a multi-user multi-program editor. As opposed 
+			to the single user, single program thing
