@@ -48,4 +48,12 @@
 			Now I think I have to move to the task of adding a gui. Oh god, please help me 
 12/20/14	I've started on the form design and I allready want to re-do everything. Figures. 
 			Currently I'm looking to make this a multi-user multi-program editor. As opposed 
-			to the single user, single program thing
+			to the single user, single program thing. Dern, biotches!
+12/21/14	Today I'll work on integrating this thing into the DS manager so that It can
+			fetch and send the appropriate data without having to expand my knowledge of
+			OOP any further :(. So, I'm trying to figure out how to populate the drop-down
+			box when the users are selected, but I'm hopelessly confused. Ok, so here's my
+			game-plan. I'm going to create the form instance in the beginning and pass it 
+			the dataset...that, or inherit methods from the DS manager (here's to 2 weeks
+			trying to straiten this out...). I figured out how to add programs to the list 
+			upon selecting the user. Now onto the part of adding new panalties.

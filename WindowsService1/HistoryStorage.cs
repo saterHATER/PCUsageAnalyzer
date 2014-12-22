@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace WindowsService1
 {
@@ -33,6 +34,8 @@ namespace WindowsService1
                 AddHistory();
                 AddPenalties();
                 WriteDataSet();
+                String[] something = { "I", "am", "Something" };
+                Application.Run(new PCMonitorWindow(_History));
             }
             catch (Exception e)
             {
