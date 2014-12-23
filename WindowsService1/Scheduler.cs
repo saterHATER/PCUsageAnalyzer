@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;   //new class?
 
-namespace WindowsService1
+namespace ComputerUsageAnalyzer
 {
 
     class Scheduler

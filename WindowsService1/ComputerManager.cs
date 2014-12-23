@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 using System.Management;
 
 
-namespace WindowsService1
+namespace ComputerUsageAnalyzer
 {
     class ComputerManager
     {

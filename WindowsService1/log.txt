@@ -57,3 +57,5 @@
 			the dataset...that, or inherit methods from the DS manager (here's to 2 weeks
 			trying to straiten this out...). I figured out how to add programs to the list 
 			upon selecting the user. Now onto the part of adding new panalties.
+			Gahh! I can't think of a good way to do this! I'll have to do some sloppy mess of
+			copying code from one class to another! boo!

@@ -1,4 +1,4 @@
-﻿namespace WindowsService1
+﻿namespace ComputerUsageAnalyzer
 {
     partial class Service1
     {

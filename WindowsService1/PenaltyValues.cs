@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WindowsService1
+namespace ComputerUsageAnalyzer
 {
     class PenaltyValues
     {

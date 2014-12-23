@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace WindowsService1
+namespace ComputerUsageAnalyzer
 {
 
     public partial class Service1 : ServiceBase
