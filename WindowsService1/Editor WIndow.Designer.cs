@@ -132,6 +132,14 @@
             // DayChooser
             // 
             this.DayChooser.FormattingEnabled = true;
+            this.DayChooser.Items.AddRange(new object[] {
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"});
             this.DayChooser.Location = new System.Drawing.Point(2, 146);
             this.DayChooser.Name = "DayChooser";
             this.DayChooser.Size = new System.Drawing.Size(120, 109);
@@ -170,7 +178,7 @@
             // 
             this.tabControl1.Controls.Add(this.UsageViewerTab);
             this.tabControl1.Controls.Add(this.PenaltyCreatorTab);
-            this.tabControl1.Location = new System.Drawing.Point(0, 2);
+            this.tabControl1.Location = new System.Drawing.Point(1, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(266, 287);
@@ -181,7 +189,7 @@
             this.UsageViewerTab.Location = new System.Drawing.Point(4, 22);
             this.UsageViewerTab.Name = "UsageViewerTab";
             this.UsageViewerTab.Padding = new System.Windows.Forms.Padding(3);
-            this.UsageViewerTab.Size = new System.Drawing.Size(258, 232);
+            this.UsageViewerTab.Size = new System.Drawing.Size(258, 261);
             this.UsageViewerTab.TabIndex = 1;
             this.UsageViewerTab.Text = "View Usage";
             this.UsageViewerTab.UseVisualStyleBackColor = true;

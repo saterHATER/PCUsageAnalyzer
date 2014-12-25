@@ -57,5 +57,9 @@
 			the dataset...that, or inherit methods from the DS manager (here's to 2 weeks
 			trying to straiten this out...). I figured out how to add programs to the list 
 			upon selecting the user. Now onto the part of adding new panalties.
-			Gahh! I can't think of a good way to do this! I'll have to do some sloppy mess of
-			copying code from one class to another! boo!
+12/22/14	Gahh! I can't think of a good way to do this! I'll have to do some sloppy mess of
+			copying code from one class to another! boo! No I won't. I'll only have to inherit
+			the base class and call a get-function on the present DT...I think...So I'll have
+			to make a method to write to a DT, but it'll take the DT as an arg (needs 2!) This
+			is super complex! Allright, I need to reorganize my datastructures. This is gonna 
+			be tricky.

@@ -34,7 +34,7 @@ namespace ComputerUsageAnalyzer
                 AddHistory();
                 AddPenalties();
                 WriteDataSet();
-                String[] something = { "I", "am", "Something" };
+                PCMonitorWindow wendy = new PCMonitorWindow();
                 Application.Run(new PCMonitorWindow(_History));
             }
             catch (Exception e)
@@ -110,5 +110,9 @@ namespace ComputerUsageAnalyzer
             _History.WriteXml(_FilePath);
         }
 
+        public DataSet GetDataSet()
+        {
+            return _History;
+        }
     }
 }

@@ -63,10 +63,13 @@ namespace ComputerUsageAnalyzer
                 currentEntry += _esep + end.ToString() + _vsep + value.ToString();
                 _PenaltyWeek.Rows[index][(day + 2)] = currentEntry;
             }
-            //else
-            //{
-            //    Console.WriteLine("Bull!! {0} is not in this DT!", program);
-            //}
+            else
+            {
+                Console.WriteLine("Bull!! {0} is not in this DT! I'll add it now!", program);
+                AddNewProgram(program);
+                Console.WriteLine("Adding it now!");
+                UpdateProgram(program, day, start, end, value);
+            }
         }
 
         public double ReturnPenalty(String program, DateTime time)

@@ -13,9 +13,8 @@ namespace ComputerUsageAnalyzer
 {
     public partial class PCMonitorWindow : Form
     {
-        private string[] _week = {"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
         private DataSet _history;
-
+        
         public PCMonitorWindow()
         {
             InitializeComponent();
@@ -28,10 +27,9 @@ namespace ComputerUsageAnalyzer
             String[] users = Directory.GetDirectories("C://Users");
             for (int i = 0; i < users.Length; i++)
                 UserChooser.Items.Add(users[i].Substring(10));
-            foreach (string day in _week)
-                DayChooser.Items.Add(day);
             ProgramChooser.Items.Add("New Program");
             _history = history;
+            DataSetHelper something = new DataSetHelper();
         }
 
         private void ProgramChooser_SelectedIndexChanged(object sender, EventArgs e)
@@ -73,18 +71,26 @@ namespace ComputerUsageAnalyzer
             foreach (String entry in listy) ProgramChooser.Items.Add(entry);
         }
 
+        private class DataSetHelper : PenaltyValues{}
+
         private void button1_Click(object sender, EventArgs e)
         {
-            string ProcName = ProcessNameInput.Text;
-            foreach (String user in UserChooser.CheckedItems)
+            DataSetHelper inputter = new DataSetHelper();
+            inputter.UpdateProgram("ONENOTE", 1, 2, 3, 4.0);
+            Console.WriteLine("LOLZ");
+        }
+
+        private static int FormatIntInput(String input)
+        {
+            try
             {
-                string PTName = "Penalties_" + user;
-                if (_history.Tables.Contains(PTName))
-                {
-                    
-                }
+
             }
-            this.Close();
+            catch (Exception e)
+            {
+                Console.WriteLine("Error getting data: {0}", e.Message);
+            }
+            return 1;
         }
         
     }
