@@ -18,7 +18,6 @@ namespace ComputerUsageAnalyzer
         public PCMonitorWindow()
         {
             InitializeComponent();
-            Console.WriteLine("Error");
         }
 
         public PCMonitorWindow(DataSet history)
@@ -74,23 +73,53 @@ namespace ComputerUsageAnalyzer
         private class DataSetHelper : PenaltyValues{}
 
         private void button1_Click(object sender, EventArgs e)
-        {
-            DataSetHelper inputter = new DataSetHelper();
-            inputter.UpdateProgram("ONENOTE", 1, 2, 3, 4.0);
-            Console.WriteLine("LOLZ");
+        {            
+            foreach (String User in UserChooser.CheckedItems)
+            {
+                try
+                {
+                    DataTable dt = _history.Tables["Penalties_" + User];
+                    DataSetHelper inputter = new DataSetHelper();
+                    String program = ProgramChooser.SelectedItem.ToString();
+                    int sTime = FormatIntInput(StartTimeInput.Text);
+                    int eTime = FormatIntInput(EndTimeInput.Text);
+                    double val = Double.Parse(PenaltyValueInput.Text);
+                    for (int i = 0; i < DayChooser.Items.Count; i++)
+                    {
+                        if (DayChooser.GetItemChecked(i))
+                        {
+                            inputter.UpdateProgram(dt, program, i, sTime, eTime, val);
+                        }
+                    }
+                
+                }
+                catch (Exception elf)
+                {
+                    Console.WriteLine("I'm Expecting this: {0}", elf.Message);
+                }
+            }
+            Console.WriteLine("Uhh, I got done with this stanza!");
         }
 
         private static int FormatIntInput(String input)
         {
+            int totalMinutes = 0;
             try
             {
-
+                String[] hrsNmns = input.Split(':');
+                totalMinutes += 60 * int.Parse(hrsNmns[0]);
+                totalMinutes += int.Parse(hrsNmns[1]);
             }
             catch (Exception e)
             {
                 Console.WriteLine("Error getting data: {0}", e.Message);
             }
-            return 1;
+            return totalMinutes;
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            
         }
         
     }

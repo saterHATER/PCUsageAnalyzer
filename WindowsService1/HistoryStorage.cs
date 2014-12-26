@@ -34,12 +34,11 @@ namespace ComputerUsageAnalyzer
                 AddHistory();
                 AddPenalties();
                 WriteDataSet();
-                PCMonitorWindow wendy = new PCMonitorWindow();
                 Application.Run(new PCMonitorWindow(_History));
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message.ToString());
+                Console.WriteLine("Error in instantiation: {0}", e.Message);
             }
         }
 
@@ -51,12 +50,9 @@ namespace ComputerUsageAnalyzer
                 if (_History.Tables.Contains(CurrentName))
                 {
                     _CurrentUserHistory.InsertDataTable(_History.Tables[CurrentName]);
-                    //give _CurrentUserHistory what _history had
                     _History.Tables.Remove(CurrentName);
-                    //Purge _history, for some reason....
                 }
                 _History.Tables.Add(_CurrentUserHistory.GetDataTable());
-                //insert newly created datatable into the dataset freshly devoid of a datatable
             }
             catch (Exception e)
             {
@@ -110,7 +106,7 @@ namespace ComputerUsageAnalyzer
             _History.WriteXml(_FilePath);
         }
 
-        public DataSet GetDataSet()
+        public static DataSet GetDataSet()
         {
             return _History;
         }

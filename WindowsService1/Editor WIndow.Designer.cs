@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PCMonitorWindow));
             this.StartTimeInput = new System.Windows.Forms.TextBox();
             this.EndTimeInput = new System.Windows.Forms.TextBox();
             this.StartTimeLabel = new System.Windows.Forms.Label();
@@ -89,8 +90,10 @@
             this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.notifyIcon1.BalloonTipText = "BLAH BLAH BLAH";
             this.notifyIcon1.BalloonTipTitle = "Card Games";
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "PC Usage Analyzer";
             this.notifyIcon1.Visible = true;
+            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
             // PenaltyLabel
             // 
@@ -131,6 +134,7 @@
             // 
             // DayChooser
             // 
+            this.DayChooser.CheckOnClick = true;
             this.DayChooser.FormattingEnabled = true;
             this.DayChooser.Items.AddRange(new object[] {
             "Sunday",
@@ -147,6 +151,7 @@
             // 
             // UserChooser
             // 
+            this.UserChooser.CheckOnClick = true;
             this.UserChooser.FormattingEnabled = true;
             this.UserChooser.Location = new System.Drawing.Point(0, 3);
             this.UserChooser.Name = "UserChooser";
@@ -233,7 +238,7 @@
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "PCMonitorWindow";
-            this.Text = "Penalty Creator";
+            this.Text = "PC Monitor Window";
             this.tabControl1.ResumeLayout(false);
             this.PenaltyCreatorTab.ResumeLayout(false);
             this.PenaltyCreatorTab.PerformLayout();

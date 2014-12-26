@@ -52,34 +52,34 @@ namespace ComputerUsageAnalyzer
                 "0" + _vsep + "0.0");       //Saturday
         }
 
-        public void UpdateProgram(String program, int day, int start, int end, double value)
+        public void UpdateProgram(DataTable dt, String program, int day, int start, int end, double value)
         {
-            int index = IndexOfRow(program);
+            int index = IndexOfRow(dt, program);
             if (index > (-1))
             {
-                String currentEntry = _PenaltyWeek.Rows[index][(day + 2)].ToString();
+                String currentEntry = dt.Rows[index][(day + 2)].ToString();
                 currentEntry += _esep + start.ToString() + _vsep + value.ToString();
                 value = value * (-1.0);
                 currentEntry += _esep + end.ToString() + _vsep + value.ToString();
-                _PenaltyWeek.Rows[index][(day + 2)] = currentEntry;
+                dt.Rows[index][(day + 2)] = currentEntry;
             }
             else
             {
                 Console.WriteLine("Bull!! {0} is not in this DT! I'll add it now!", program);
                 AddNewProgram(program);
                 Console.WriteLine("Adding it now!");
-                UpdateProgram(program, day, start, end, value);
+                UpdateProgram(dt, program, day, start, end, value);
             }
         }
 
-        public double ReturnPenalty(String program, DateTime time)
+        public double ReturnPenalty(DataTable dt, String program, DateTime time)
         {
             double penalty = 0.0;
-            int index = IndexOfRow(program);
+            int index = IndexOfRow(dt, program);
             if (index > (-1))
             {
                 int minute = (int) time.TimeOfDay.TotalMinutes;
-                String entries = _PenaltyWeek.Rows[index][((int)time.DayOfWeek + 2)].ToString();
+                String entries = dt.Rows[index][((int)time.DayOfWeek + 2)].ToString();
                 foreach (String entry in entries.Split(_esep))
                 {
                     String[] values = entry.Split(_vsep);
@@ -97,9 +97,9 @@ namespace ComputerUsageAnalyzer
             return penalty;
         }
 
-        private int IndexOfRow(String program)
+        private int IndexOfRow(DataTable dt, String program)
         {
-            foreach (DataRow row in _PenaltyWeek.Rows)
+            foreach (DataRow row in dt.Rows)
             {
                 String selection = row["Program Name"].ToString();
                 if (String.Compare(program,selection)==0)
@@ -136,7 +136,7 @@ namespace ComputerUsageAnalyzer
 
         public String Title()
         {
-            return _PenaltyWeek.TableName.ToString();
+            return _PenaltyWeek.TableName;
         }
 
     }

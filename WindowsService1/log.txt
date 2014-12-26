@@ -63,3 +63,9 @@
 			to make a method to write to a DT, but it'll take the DT as an arg (needs 2!) This
 			is super complex! Allright, I need to reorganize my datastructures. This is gonna 
 			be tricky.
+12/25/14	Aww, fuck I broke the program. Hopefully I can fix it...actually, it was a message I 
+			put in there a while ago, so, hopefully everything works....My problem now is that
+			the inherited method is 'stealing' the DT from the DSmanager. I need to somehow
+			re-model the Pmanager's method. I fixed the dt theft (needs validation), but I didn't 
+			fix the problem. Looks like I've got working code. I need to find out how to launch
+			the form correctly.
