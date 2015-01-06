@@ -27,7 +27,7 @@ namespace ComputerUsageAnalyzer
             for (int i = 0; i < users.Length; i++)
                 UserChooser.Items.Add(users[i].Substring(10));
             ProgramChooser.Items.Add("New Program");
-            _history = history;
+            _history = history;//dafuq?
             DataSetHelper something = new DataSetHelper();
         }
 
