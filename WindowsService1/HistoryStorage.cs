@@ -34,7 +34,7 @@ namespace ComputerUsageAnalyzer
                 AddHistory();
                 AddPenalties();
                 WriteDataSet();
-                Application.Run(new PCMonitorWindow(_History));
+                //Application.Run(new PCMonitorWindow(_History));
             }
             catch (Exception e)
             {
@@ -93,7 +93,9 @@ namespace ComputerUsageAnalyzer
                         _CurrentUserPenalties.AddNewProgram(process.ProcessName);
                     }
                 }
+                Console.WriteLine("Bleep");
                 WriteDataSet();
+                Console.Write("Bloop");
             }
             catch (Exception e)
             {
@@ -106,7 +108,7 @@ namespace ComputerUsageAnalyzer
             _History.WriteXml(_FilePath);
         }
 
-        public static DataSet GetDataSet()
+        public DataSet GetDataSet()
         {
             return _History;
         }

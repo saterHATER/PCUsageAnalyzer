@@ -70,3 +70,11 @@
 			fix the problem. Looks like I've got working code. I need to find out how to launch
 			the form correctly.
 			I broke the repo on my home machine. So this is a test edit.
+			A couple things: 1. Starting the windows form is top priority. the DS must be run
+			within it...possibly. I'll firstly get to work on that. But just to check, I'll make
+			sure that everythings working right now.
+12/31/14	I got most of everything to work on this 'experiment' project to work. 'Twas easy, 
+			it worked almost immedately. So onto tweaking the hell out of this sucker. Youch'
+1/2/15		Well, I'm trying to get throug this process of resturcturing the whole process. No
+			fun. It appears that the restructuring of the code has been very effective. I'm 
+			going to celebrate by relaxing.
