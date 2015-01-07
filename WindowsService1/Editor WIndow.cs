@@ -29,6 +29,7 @@ namespace ComputerUsageAnalyzer
             ProgramChooser.Items.Add("New Program");
             _history = history;
             DataSetHelper something = new DataSetHelper();
+            this.Hide();
         }
 
         private void ProgramChooser_SelectedIndexChanged(object sender, EventArgs e)
@@ -120,7 +121,7 @@ namespace ComputerUsageAnalyzer
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             Console.WriteLine("BOOOSH");
-            Application.Run(this);
+            this.Show();
         }
         
     }

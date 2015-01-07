@@ -69,8 +69,8 @@ namespace ComputerUsageAnalyzer
 
         public void LaunchForm()
         {
-            PCMonitorWindow dumbdumb = new PCMonitorWindow(_appCollector.GetDataSet());
-            //Application.Run(new PCMonitorWindow(_appCollector.GetDataSet()));
+            //PCMonitorWindow dumbdumb = new PCMonitorWindow(_appCollector.GetDataSet());
+            Application.Run(new PCMonitorWindow(_appCollector.GetDataSet()));
         }
 
         public void oTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -80,7 +80,7 @@ namespace ComputerUsageAnalyzer
 
         public void closeUp()
         {
-
+            
         }
 
     }
