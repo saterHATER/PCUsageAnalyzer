@@ -29,7 +29,6 @@ namespace ComputerUsageAnalyzer
             ProgramChooser.Items.Add("New Program");
             _history = history;
             DataSetHelper something = new DataSetHelper();
-            this.Hide();
         }
 
         private void ProgramChooser_SelectedIndexChanged(object sender, EventArgs e)
@@ -120,9 +119,37 @@ namespace ComputerUsageAnalyzer
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            Console.WriteLine("BOOOSH");
             this.Show();
+            this.WindowState = FormWindowState.Normal;
+        }
+
+        private void PCMonitorWindow_Resize(object sender, EventArgs e)
+        {
+            notifyIcon1.BalloonTipTitle = "Minimize to Tray App";
+            notifyIcon1.BalloonTipText = "You have successfully minimized your form.";
+
+            if (FormWindowState.Minimized == this.WindowState)
+            {
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(500);
+                this.Hide();
+            }
+            else if (FormWindowState.Normal == this.WindowState)
+            {
+                notifyIcon1.Visible = false;
+            }
+        }
+
+        private void PCMonitorWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            notifyIcon1.BalloonTipTitle = "Minimize to Tray App";
+            notifyIcon1.BalloonTipText = "You have successfully minimized your form.";
+            notifyIcon1.Visible = true;
+            notifyIcon1.ShowBalloonTip(500);
+            this.Hide();
         }
         
+
     }
 }
