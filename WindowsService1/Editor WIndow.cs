@@ -29,6 +29,11 @@ namespace ComputerUsageAnalyzer
             ProgramChooser.Items.Add("New Program");
             _history = history;
             DataSetHelper something = new DataSetHelper();
+
+
+            dataGridView1.AutoGenerateColumns = true;
+            dataGridView1.DataSource = _history;
+            dataGridView1.DataMember = "History_"+Environment.UserName; 
         }
 
         private void ProgramChooser_SelectedIndexChanged(object sender, EventArgs e)
@@ -89,6 +94,7 @@ namespace ComputerUsageAnalyzer
                         if (DayChooser.GetItemChecked(i))
                         {
                             inputter.UpdateProgram(dt, program, i, sTime, eTime, val);
+                            DayChooser.SetItemChecked(i, false);
                         }
                     }
                 
@@ -150,6 +156,5 @@ namespace ComputerUsageAnalyzer
             this.Hide();
         }
         
-
     }
 }

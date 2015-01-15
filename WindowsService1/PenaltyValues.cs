@@ -32,24 +32,24 @@ namespace ComputerUsageAnalyzer
 
         public void AddNewProgram(String program)
         {
-            foreach (DataRow row in _PenaltyWeek.Rows)
+            int index = IndexOfRow(_PenaltyWeek, program);
+            if (index < 0)
             {
-                if (row["Program Name"].Equals(program))
-                {
-                    //Console.WriteLine("Bull!! {0} is allready in this DT!", program);
-                    return;
-                }
+                _PenaltyWeek.Rows.Add(
+                    _PenaltyWeek.Rows.Count,    //row cout
+                    program,                    //program name
+                    "0" + _vsep + "0.0",        //Sunday
+                    "0" + _vsep + "0.0",        //Monday
+                    "0" + _vsep + "0.0",        //Tuesday
+                    "0" + _vsep + "0.0",        //Wednesday
+                    "0" + _vsep + "0.0",        //Thursday
+                    "0" + _vsep + "0.0",        //Friday
+                    "0" + _vsep + "0.0");       //Saturday
             }
-            _PenaltyWeek.Rows.Add(
-                _PenaltyWeek.Rows.Count,    //row cout
-                program,                    //program name
-                "0" + _vsep + "0.0",        //Sunday
-                "0" + _vsep + "0.0",        //Monday
-                "0" + _vsep + "0.0",        //Tuesday
-                "0" + _vsep + "0.0",        //Wednesday
-                "0" + _vsep + "0.0",        //Thursday
-                "0" + _vsep + "0.0",        //Friday
-                "0" + _vsep + "0.0");       //Saturday
+            else
+            {
+                Console.WriteLine("Bull!! {0} is allready in this DT!", program);
+            }
         }
 
         public void UpdateProgram(DataTable dt, String program, int day, int start, int end, double value)
