@@ -30,6 +30,7 @@ namespace ComputerUsageAnalyzer
             _history = history;
             DataSetHelper something = new DataSetHelper();
 
+            foreach (DataTable t in _history.Tables) TableChooser.Items.Add(t.TableName);
 
             dataGridView1.AutoGenerateColumns = true;
             dataGridView1.DataSource = _history;

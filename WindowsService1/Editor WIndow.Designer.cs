@@ -45,9 +45,9 @@
             this.ProcessNameInput = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.UsageViewerTab = new System.Windows.Forms.TabPage();
+            this.TableChooser = new System.Windows.Forms.ComboBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.PenaltyCreatorTab = new System.Windows.Forms.TabPage();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.UsageViewerTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -226,7 +226,7 @@
             // 
             // UsageViewerTab
             // 
-            this.UsageViewerTab.Controls.Add(this.comboBox1);
+            this.UsageViewerTab.Controls.Add(this.TableChooser);
             this.UsageViewerTab.Controls.Add(this.dataGridView1);
             this.UsageViewerTab.Location = new System.Drawing.Point(4, 22);
             this.UsageViewerTab.Name = "UsageViewerTab";
@@ -235,6 +235,15 @@
             this.UsageViewerTab.TabIndex = 1;
             this.UsageViewerTab.Text = "View Usage";
             this.UsageViewerTab.UseVisualStyleBackColor = true;
+            // 
+            // TableChooser
+            // 
+            this.TableChooser.Dock = System.Windows.Forms.DockStyle.Top;
+            this.TableChooser.FormattingEnabled = true;
+            this.TableChooser.Location = new System.Drawing.Point(3, 3);
+            this.TableChooser.Name = "TableChooser";
+            this.TableChooser.Size = new System.Drawing.Size(344, 21);
+            this.TableChooser.TabIndex = 1;
             // 
             // dataGridView1
             // 
@@ -266,15 +275,6 @@
             this.PenaltyCreatorTab.TabIndex = 0;
             this.PenaltyCreatorTab.Text = "Add Penalty";
             this.PenaltyCreatorTab.UseVisualStyleBackColor = true;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(3, 3);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(344, 21);
-            this.comboBox1.TabIndex = 1;
             // 
             // PCMonitorWindow
             // 
@@ -316,6 +316,6 @@
         private System.Windows.Forms.TabPage PenaltyCreatorTab;
         private System.Windows.Forms.TabPage UsageViewerTab;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox TableChooser;
     }
 }
