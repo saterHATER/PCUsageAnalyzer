@@ -244,6 +244,8 @@
             this.TableChooser.Name = "TableChooser";
             this.TableChooser.Size = new System.Drawing.Size(344, 21);
             this.TableChooser.TabIndex = 1;
+            this.TableChooser.SelectedIndexChanged += new System.EventHandler(this.TableChooser_SelectedIndexChanged);
+            this.TableChooser.SelectedValueChanged += new System.EventHandler(this.UserChooser_SelectedIndexChanged);
             // 
             // dataGridView1
             // 

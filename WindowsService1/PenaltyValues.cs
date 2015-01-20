@@ -16,7 +16,7 @@ namespace ComputerUsageAnalyzer
 
         public PenaltyValues()
         {
-            _PenaltyWeek = new DataTable();
+            _PenaltyWeek = new DataTable("Current_Penalties");
             _PenaltyWeek.Columns.Add("Row Number", typeof(int));
             _PenaltyWeek.Columns.Add("Program Name", typeof(String));
             _PenaltyWeek.Columns.Add("Sunday", typeof(String));

@@ -34,7 +34,9 @@ namespace ComputerUsageAnalyzer
 
             dataGridView1.AutoGenerateColumns = true;
             dataGridView1.DataSource = _history;
-            dataGridView1.DataMember = "History_"+Environment.UserName; 
+            TableChooser.SelectedItem = "History_" + Environment.UserName;
+            //dataGridView1.DataSource = _history;
+            //dataGridView1.DataMember = "History_"+Environment.UserName; 
         }
 
         private void ProgramChooser_SelectedIndexChanged(object sender, EventArgs e)
@@ -155,6 +157,12 @@ namespace ComputerUsageAnalyzer
             notifyIcon1.Visible = true;
             notifyIcon1.ShowBalloonTip(500);
             this.Hide();
+        }
+
+        private void TableChooser_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dataGridView1.DataSource = _history;
+            dataGridView1.DataMember = TableChooser.SelectedItem.ToString(); 
         }
         
     }
