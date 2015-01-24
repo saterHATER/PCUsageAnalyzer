@@ -103,7 +103,7 @@ namespace ComputerUsageAnalyzer
             }
         }
 
-        private static void WriteDataSet()
+        private static void  WriteDataSet()
         {
             _History.WriteXml(_FilePath);
         }
@@ -112,5 +112,23 @@ namespace ComputerUsageAnalyzer
         {
             return _History;
         }
+
+        public void UpdateProgram(String tableName, String program, int day, int start, int end, double value)
+        {
+            if (_CurrentUserPenalties.Title() != tableName) SwitchPenalties(tableName);
+            _CurrentUserPenalties.UpdateProgram(program, day, start, end, value);
+            WriteDataSet();
+            SwitchPenalties("Penalties_" + Environment.UserName.ToString());
+        }
+
+        public void SwitchPenalties(String tableName)
+        {
+            if (_History.Tables.Contains(tableName) && _CurrentUserPenalties.Title() != tableName)
+            {
+                _CurrentUserPenalties.InsertDataTable(_History.Tables[tableName]);
+            }
+            else Console.WriteLine("Couldn't match The Tablename, yo");
+        }
+
     }
 }

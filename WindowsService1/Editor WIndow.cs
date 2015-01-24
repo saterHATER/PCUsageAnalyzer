@@ -21,6 +21,8 @@ namespace ComputerUsageAnalyzer
         }
 
         public PCMonitorWindow(DataSet history)
+            // ADD A HISTORY STORAGE CLASS HERE, HAVE SCHEDULER INSTANTIATE 
+            // THIS AND CASCADE FROM THERE.
         {
             InitializeComponent();
             String[] users = Directory.GetDirectories("C://Users");
@@ -28,15 +30,12 @@ namespace ComputerUsageAnalyzer
                 UserChooser.Items.Add(users[i].Substring(10));
             ProgramChooser.Items.Add("New Program");
             _history = history;
-            DataSetHelper something = new DataSetHelper();
 
             foreach (DataTable t in _history.Tables) TableChooser.Items.Add(t.TableName);
 
             dataGridView1.AutoGenerateColumns = true;
             dataGridView1.DataSource = _history;
             TableChooser.SelectedItem = "History_" + Environment.UserName;
-            //dataGridView1.DataSource = _history;
-            //dataGridView1.DataMember = "History_"+Environment.UserName; 
         }
 
         private void ProgramChooser_SelectedIndexChanged(object sender, EventArgs e)
@@ -78,16 +77,15 @@ namespace ComputerUsageAnalyzer
             foreach (String entry in listy) ProgramChooser.Items.Add(entry);
         }
 
+       /*
         private class DataSetHelper : PenaltyValues{}
-
+        */
         private void button1_Click(object sender, EventArgs e)
         {            
             foreach (String User in UserChooser.CheckedItems)
             {
                 try
                 {
-                    DataTable dt = _history.Tables["Penalties_" + User];
-                    DataSetHelper inputter = new DataSetHelper();
                     String program = ProgramChooser.SelectedItem.ToString();
                     int sTime = FormatIntInput(StartTimeInput.Text);
                     int eTime = FormatIntInput(EndTimeInput.Text);

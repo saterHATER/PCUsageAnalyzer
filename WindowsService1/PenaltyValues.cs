@@ -52,23 +52,23 @@ namespace ComputerUsageAnalyzer
             }
         }
 
-        public void UpdateProgram(DataTable dt, String program, int day, int start, int end, double value)
+        internal void UpdateProgram(String program, int day, int start, int end, double value)
         {
-            int index = IndexOfRow(dt, program);
+            int index = IndexOfRow(_PenaltyWeek, program);
             if (index > (-1))
             {
-                String currentEntry = dt.Rows[index][(day + 2)].ToString();
+                String currentEntry = _PenaltyWeek.Rows[index][(day + 2)].ToString();
                 currentEntry += _esep + start.ToString() + _vsep + value.ToString();
                 value = value * (-1.0);
                 currentEntry += _esep + end.ToString() + _vsep + value.ToString();
-                dt.Rows[index][(day + 2)] = currentEntry;
+                _PenaltyWeek.Rows[index][(day + 2)] = currentEntry;
             }
             else
             {
                 Console.WriteLine("Bull!! {0} is not in this DT! I'll add it now!", program);
                 AddNewProgram(program);
                 Console.WriteLine("Adding it now!");
-                UpdateProgram(dt, program, day, start, end, value);
+                UpdateProgram(program, day, start, end, value);
             }
         }
 
