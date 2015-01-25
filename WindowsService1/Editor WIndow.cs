@@ -13,29 +13,42 @@ namespace ComputerUsageAnalyzer
 {
     public partial class PCMonitorWindow : Form
     {
-        private DataSet _history;
+        private HistoryStorage _history;
+        private DataTableCollection _tables;
+        private Scheduler _timer;
         
-        public PCMonitorWindow()
+        /*public PCMonitorWindow()
         {
             InitializeComponent();
-        }
+        }*/
 
-        public PCMonitorWindow(DataSet history)
+        public PCMonitorWindow()
             // ADD A HISTORY STORAGE CLASS HERE, HAVE SCHEDULER INSTANTIATE 
             // THIS AND CASCADE FROM THERE.
         {
             InitializeComponent();
+            _history = new HistoryStorage();
+            _tables = _history.GetDataSet().Tables;
+            _timer = new Scheduler();
             String[] users = Directory.GetDirectories("C://Users");
             for (int i = 0; i < users.Length; i++)
                 UserChooser.Items.Add(users[i].Substring(10));
             ProgramChooser.Items.Add("New Program");
-            _history = history;
 
-            foreach (DataTable t in _history.Tables) TableChooser.Items.Add(t.TableName);
+            foreach (DataTable t in _tables) TableChooser.Items.Add(t.TableName);
 
-            dataGridView1.AutoGenerateColumns = true;
-            dataGridView1.DataSource = _history;
-            TableChooser.SelectedItem = "History_" + Environment.UserName;
+            try
+            {
+                dataGridView1.AutoGenerateColumns = true;
+                dataGridView1.DataSource = _history;
+                TableChooser.SelectedItem = "History_" + Environment.UserName;
+                _timer.Start(_history);
+            }
+            catch (Exception Elf)
+            {
+                Console.WriteLine(Elf.Message);
+                throw;
+            }
         }
 
         private void ProgramChooser_SelectedIndexChanged(object sender, EventArgs e)
@@ -59,9 +72,9 @@ namespace ComputerUsageAnalyzer
             {
                 try
                 {
-                    if (_history.Tables.Contains(("Penalties_" + user)))
+                    if (_tables.Contains(("Penalties_" + user)))
                     {
-                        foreach (DataRow row in _history.Tables["Penalties_" + user].Rows)
+                        foreach (DataRow row in _tables["Penalties_" + user].Rows)
                         {
                             listy.Add(row["Program Name"].ToString());
                         }
@@ -81,20 +94,21 @@ namespace ComputerUsageAnalyzer
         private class DataSetHelper : PenaltyValues{}
         */
         private void button1_Click(object sender, EventArgs e)
-        {            
+        {
+            int sTime = FormatIntInput(StartTimeInput.Text);
+            int eTime = FormatIntInput(EndTimeInput.Text);
+            double val = Double.Parse(PenaltyValueInput.Text);
+            String program = ProgramChooser.SelectedItem.ToString();
             foreach (String User in UserChooser.CheckedItems)
             {
                 try
                 {
-                    String program = ProgramChooser.SelectedItem.ToString();
-                    int sTime = FormatIntInput(StartTimeInput.Text);
-                    int eTime = FormatIntInput(EndTimeInput.Text);
-                    double val = Double.Parse(PenaltyValueInput.Text);
+                    String tableName = "Penalties_" + User;
                     for (int i = 0; i < DayChooser.Items.Count; i++)
                     {
                         if (DayChooser.GetItemChecked(i))
                         {
-                            inputter.UpdateProgram(dt, program, i, sTime, eTime, val);
+                            _history.UpdateProgram(tableName, program, i, sTime, eTime, val);
                             DayChooser.SetItemChecked(i, false);
                         }
                     }
@@ -159,8 +173,16 @@ namespace ComputerUsageAnalyzer
 
         private void TableChooser_SelectedIndexChanged(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = _history;
-            dataGridView1.DataMember = TableChooser.SelectedItem.ToString(); 
+            try
+            {
+                dataGridView1.DataSource = _history.GetDataSet();
+                dataGridView1.DataMember = TableChooser.SelectedItem.ToString();
+            }
+            catch (Exception Eeh)
+            {
+                Console.WriteLine(Eeh.Message);
+                throw;
+            }
         }
         
     }

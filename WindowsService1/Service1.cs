@@ -15,23 +15,17 @@ namespace ComputerUsageAnalyzer
 
     public partial class Service1 : ServiceBase
     {
-        
-        //<new shit>
-        private HistoryStorage _DataSetManager;   
-        //</new shit>
+        private PCMonitorWindow _form;
 
         public Service1()
         {
             InitializeComponent();
-            InitializeScheduler(); 
+            InitializeStuff(); 
         }
 
-        private void InitializeScheduler()//I want all of this gone.
+        private void InitializeStuff()//I want all of this gone.
         {
-            _DataSetManager = new HistoryStorage();
-            Scheduler osheduler = new Scheduler();
-            osheduler.Start(_DataSetManager);
-            osheduler.LaunchForm();
+            _form = new PCMonitorWindow();
         }
 
         public void OnDebug()
@@ -41,8 +35,7 @@ namespace ComputerUsageAnalyzer
 
         protected override void OnStart(string[] args)
         {
-            Stopwatch stopWatch = new Stopwatch();//I want this gone  
-            stopWatch.Start();                    //this too.  
+            Application.Run(_form);
         }
 
         protected override void OnStop()
@@ -57,20 +50,14 @@ namespace ComputerUsageAnalyzer
         private static int interval = 10000;
         private HistoryStorage _appCollector;
 
-        public void Start(HistoryStorage ac)
+        public void Start(HistoryStorage hs)
         {
             oTimer = new System.Timers.Timer(interval);
             oTimer.AutoReset = true;
             oTimer.Enabled = true;
             oTimer.Start();
-            _appCollector = ac;
+            _appCollector = hs;
             oTimer.Elapsed += new System.Timers.ElapsedEventHandler(oTimerElapsed);
-        }
-
-        public void LaunchForm()
-        {
-            //PCMonitorWindow dumbdumb = new PCMonitorWindow(_appCollector.GetDataSet());
-            Application.Run(new PCMonitorWindow(_appCollector.GetDataSet()));
         }
 
         public void oTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
