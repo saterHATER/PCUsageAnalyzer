@@ -71,4 +71,27 @@ namespace ComputerUsageAnalyzer
         }
 
     }
+
+    class ComputerManager
+    {
+        protected double _POINTS;
+
+        ComputerManager()
+        {
+            double _POINTS = new double();
+            _POINTS = 100.0;
+        }
+
+        public void UpdatePoints(float pts)
+        {
+            _POINTS -= pts;
+            if (_POINTS <= 0.00) CutOffUser();
+        }
+
+        private static void CutOffUser()
+        {
+            System.Diagnostics.Process.Start("shutdown", "/l /f");
+        }
+
+    }
 }

@@ -55,7 +55,6 @@
     <Compile Include="PenaltyValues.cs" />
     <Compile Include="HistoryStorage.cs" />
     <Compile Include="HistoryDataTable.cs" />
-    <Compile Include="ComputerManager.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>

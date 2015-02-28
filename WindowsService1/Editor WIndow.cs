@@ -16,11 +16,6 @@ namespace ComputerUsageAnalyzer
         private HistoryStorage _history;
         private DataTableCollection _tables;
         private Scheduler _timer;
-        
-        /*public PCMonitorWindow()
-        {
-            InitializeComponent();
-        }*/
 
         public PCMonitorWindow()
             // ADD A HISTORY STORAGE CLASS HERE, HAVE SCHEDULER INSTANTIATE 
@@ -89,10 +84,7 @@ namespace ComputerUsageAnalyzer
             ProgramChooser.Items.Add("New Program");
             foreach (String entry in listy) ProgramChooser.Items.Add(entry);
         }
-
-       /*
-        private class DataSetHelper : PenaltyValues{}
-        */
+        
         private void button1_Click(object sender, EventArgs e)
         {
             int sTime = FormatIntInput(StartTimeInput.Text);

@@ -34,7 +34,6 @@ namespace ComputerUsageAnalyzer
                 AddHistory();
                 AddPenalties();
                 WriteDataSet();
-                //Application.Run(new PCMonitorWindow(_History));
             }
             catch (Exception e)
             {
