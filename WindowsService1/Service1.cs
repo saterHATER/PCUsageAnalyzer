@@ -79,7 +79,12 @@ namespace ComputerUsageAnalyzer
         ComputerManager()
         {
             double _POINTS = new double();
-            _POINTS = 100.0;
+            _POINTS = 0.00;
+        }
+
+        public double GetPoints()
+        {
+            return _POINTS;
         }
 
         public void UpdatePoints(float pts)

@@ -83,6 +83,9 @@ namespace ComputerUsageAnalyzer
             {
                 DateTime now = DateTime.Now;
                 Process[] processlist = Process.GetProcesses();
+
+                List<String> ProgramList = new List<string>();
+
                 foreach (Process process in processlist)
                 {
                     if (!String.IsNullOrEmpty(process.MainWindowTitle))
@@ -90,6 +93,7 @@ namespace ComputerUsageAnalyzer
                         string testies = process.ProcessName;
                         _CurrentUserHistory.record(process, now);
                         _CurrentUserPenalties.AddNewProgram(process.ProcessName);
+                        ProgramList.Add(testies);
                     }
                 }
                 Console.WriteLine("Bleep");
