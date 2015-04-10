@@ -13,6 +13,7 @@ namespace ComputerUsageAnalyzer
         private static DataTable _PenaltyWeek;
         private static char _esep = ' ';
         private static char _vsep = '#';
+        private static double _graceVal = 1.0;
 
         public PenaltyValues()
         {
@@ -36,19 +37,19 @@ namespace ComputerUsageAnalyzer
             if (index < 0)
             {
                 _PenaltyWeek.Rows.Add(
-                    _PenaltyWeek.Rows.Count,    //row cout
-                    program,                    //program name
-                    "0" + _vsep + "0.0",        //Sunday
-                    "0" + _vsep + "0.0",        //Monday
-                    "0" + _vsep + "0.0",        //Tuesday
-                    "0" + _vsep + "0.0",        //Wednesday
-                    "0" + _vsep + "0.0",        //Thursday
-                    "0" + _vsep + "0.0",        //Friday
-                    "0" + _vsep + "0.0");       //Saturday
+                    _PenaltyWeek.Rows.Count,                //row cout
+                    program,                                //program name
+                    "0" + _vsep + _graceVal.ToString(),     //Sunday
+                    "0" + _vsep + _graceVal.ToString(),     //Monday
+                    "0" + _vsep + _graceVal.ToString(),     //Tuesday
+                    "0" + _vsep + _graceVal.ToString(),     //Wednesday
+                    "0" + _vsep + _graceVal.ToString(),     //Thursday
+                    "0" + _vsep + _graceVal.ToString(),     //Friday
+                    "0" + _vsep + _graceVal.ToString());    //Saturday
             }
             else
             {
-                Console.WriteLine("Bull!! {0} is allready in this DT!", program);
+                //Console.WriteLine("Bull!! {0} is allready in this DT!", program);
             }
         }
 
@@ -72,14 +73,14 @@ namespace ComputerUsageAnalyzer
             }
         }
 
-        public double ReturnPenalty(DataTable dt, String program, DateTime time)
+        public double ReturnPenalty(String program, DateTime time)
         {
             double penalty = 0.0;
-            int index = IndexOfRow(dt, program);
+            int index = IndexOfRow(_PenaltyWeek, program);
             if (index > (-1))
             {
                 int minute = (int) time.TimeOfDay.TotalMinutes;
-                String entries = dt.Rows[index][((int)time.DayOfWeek + 2)].ToString();
+                String entries = _PenaltyWeek.Rows[index][((int)time.DayOfWeek + 2)].ToString();
                 foreach (String entry in entries.Split(_esep))
                 {
                     String[] values = entry.Split(_vsep);
@@ -90,10 +91,6 @@ namespace ComputerUsageAnalyzer
                     }
                 }
             }
-            //else
-            //{
-            //    Console.WriteLine("Bull!! {0} is not in this DT!", program);
-            //}
             return penalty;
         }
 

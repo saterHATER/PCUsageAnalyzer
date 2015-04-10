@@ -27,7 +27,13 @@ namespace ComputerUsageAnalyzer
             _timer = new Scheduler();
             String[] users = Directory.GetDirectories("C://Users");
             for (int i = 0; i < users.Length; i++)
-                UserChooser.Items.Add(users[i].Substring(10));
+            {
+                String user = users[i].Substring(10);
+                if (user != "All Users" && user != "Default" && user != "Default User" && user != "Public")
+                {
+                    UserChooser.Items.Add(user);
+                }
+            }
             ProgramChooser.Items.Add("New Program");
 
             foreach (DataTable t in _tables) TableChooser.Items.Add(t.TableName);
@@ -91,20 +97,23 @@ namespace ComputerUsageAnalyzer
             int eTime = FormatIntInput(EndTimeInput.Text);
             double val = Double.Parse(PenaltyValueInput.Text);
             String program = ProgramChooser.SelectedItem.ToString();
+            if (program == "New Program") program = ProcessNameInput.Text;
             foreach (String User in UserChooser.CheckedItems)
             {
                 try
                 {
                     String tableName = "Penalties_" + User;
-                    for (int i = 0; i < DayChooser.Items.Count; i++)
+                    if (_history.exists(tableName))
                     {
-                        if (DayChooser.GetItemChecked(i))
+                        for (int i = 0; i < DayChooser.Items.Count; i++)
                         {
-                            _history.UpdateProgram(tableName, program, i, sTime, eTime, val);
-                            DayChooser.SetItemChecked(i, false);
+                            if (DayChooser.GetItemChecked(i))
+                            {
+                                _history.UpdateProgram(tableName, program, i, sTime, eTime, val);
+                                DayChooser.SetItemChecked(i, false);
+                            }
                         }
                     }
-                
                 }
                 catch (Exception elf)
                 {
@@ -175,6 +184,12 @@ namespace ComputerUsageAnalyzer
                 Console.WriteLine(Eeh.Message);
                 throw;
             }
+        }
+        
+        public void killIcon()
+        {
+            this.Hide();
+            notifyIcon1.Visible = false;
         }
         
     }

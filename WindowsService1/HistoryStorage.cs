@@ -77,7 +77,7 @@ namespace ComputerUsageAnalyzer
             }
         }
 
-        public void sample()
+        public List<String> sample()
         {
             try
             {
@@ -98,12 +98,15 @@ namespace ComputerUsageAnalyzer
                 }
                 Console.WriteLine("Bleep");
                 WriteDataSet();
-                Console.Write("Bloop");
+                Console.WriteLine("Bloop");
+                return ProgramList;
             }
             catch (Exception e)
             {
                 Console.WriteLine("ERROR IN SAMPLE: \n" + e.Message.ToString());
             }
+            Console.WriteLine("ERROR in SAMPLE");
+            return null;
         }
 
         private static void  WriteDataSet()
@@ -133,6 +136,17 @@ namespace ComputerUsageAnalyzer
             else Console.WriteLine("Couldn't match The Tablename, yo");
         }
 
+        public Boolean exists(String tblName)
+        {
+            if (_History.Tables.Contains(tblName)) return true;
+            return false;
+        }
+
+        public double getPenalty(String program, int offset, DateTime refence)
+        {
+            DateTime time = refence.Add(new TimeSpan(0,(-1)*offset,0));
+            return _CurrentUserPenalties.ReturnPenalty(program, time);
+        }
 
     }
 }

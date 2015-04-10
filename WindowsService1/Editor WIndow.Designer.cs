@@ -221,7 +221,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(358, 303);
+            this.tabControl1.Size = new System.Drawing.Size(421, 351);
             this.tabControl1.TabIndex = 2;
             // 
             // UsageViewerTab
@@ -231,7 +231,7 @@
             this.UsageViewerTab.Location = new System.Drawing.Point(4, 22);
             this.UsageViewerTab.Name = "UsageViewerTab";
             this.UsageViewerTab.Padding = new System.Windows.Forms.Padding(3);
-            this.UsageViewerTab.Size = new System.Drawing.Size(350, 277);
+            this.UsageViewerTab.Size = new System.Drawing.Size(413, 325);
             this.UsageViewerTab.TabIndex = 1;
             this.UsageViewerTab.Text = "View Usage";
             this.UsageViewerTab.UseVisualStyleBackColor = true;
@@ -242,18 +242,23 @@
             this.TableChooser.FormattingEnabled = true;
             this.TableChooser.Location = new System.Drawing.Point(3, 3);
             this.TableChooser.Name = "TableChooser";
-            this.TableChooser.Size = new System.Drawing.Size(344, 21);
+            this.TableChooser.Size = new System.Drawing.Size(407, 21);
             this.TableChooser.TabIndex = 1;
             this.TableChooser.SelectedIndexChanged += new System.EventHandler(this.TableChooser_SelectedIndexChanged);
             this.TableChooser.SelectedValueChanged += new System.EventHandler(this.UserChooser_SelectedIndexChanged);
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToOrderColumns = true;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(3, 3);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(344, 271);
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.Size = new System.Drawing.Size(407, 319);
             this.dataGridView1.TabIndex = 0;
             // 
             // PenaltyCreatorTab
@@ -273,7 +278,7 @@
             this.PenaltyCreatorTab.Location = new System.Drawing.Point(4, 22);
             this.PenaltyCreatorTab.Name = "PenaltyCreatorTab";
             this.PenaltyCreatorTab.Padding = new System.Windows.Forms.Padding(3);
-            this.PenaltyCreatorTab.Size = new System.Drawing.Size(350, 277);
+            this.PenaltyCreatorTab.Size = new System.Drawing.Size(413, 325);
             this.PenaltyCreatorTab.TabIndex = 0;
             this.PenaltyCreatorTab.Text = "Add Penalty";
             this.PenaltyCreatorTab.UseVisualStyleBackColor = true;
@@ -282,7 +287,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(358, 303);
+            this.ClientSize = new System.Drawing.Size(421, 351);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "PCMonitorWindow";

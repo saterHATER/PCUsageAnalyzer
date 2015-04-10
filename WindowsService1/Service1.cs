@@ -40,29 +40,42 @@ namespace ComputerUsageAnalyzer
 
         protected override void OnStop()
         {
-
+            _form.killIcon();
         }
     }
 
     class Scheduler
     {
-        System.Timers.Timer oTimer = null;
-        private static int interval = 10000;
+        System.Timers.Timer _oTimer = null;
+        private static int _interval = 10000;
         private HistoryStorage _appCollector;
+        public ComputerManager _PolicyPusher;
 
         public void Start(HistoryStorage hs)
         {
-            oTimer = new System.Timers.Timer(interval);
-            oTimer.AutoReset = true;
-            oTimer.Enabled = true;
-            oTimer.Start();
+            ComputerManager _PolicyPusher = new ComputerManager();
+            _oTimer = new System.Timers.Timer(_interval);
+            _oTimer.AutoReset = true;
+            _oTimer.Enabled = true;
+            _oTimer.Start();
             _appCollector = hs;
-            oTimer.Elapsed += new System.Timers.ElapsedEventHandler(oTimerElapsed);
+            _oTimer.Elapsed += new System.Timers.ElapsedEventHandler(oTimerElapsed);
         }
 
         public void oTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            _appCollector.sample();
+            List<String> progList = new List<String>();
+            progList = _appCollector.sample();
+            foreach (String prog in progList)
+            {
+                Console.Write(prog + " ");
+                Console.WriteLine(_appCollector.getPenalty(prog, 0, DateTime.Now));
+            }
+        }
+
+        public void processPenalties(List<String> Programs)
+        {
+            
         }
 
         public void closeUp()
@@ -75,6 +88,8 @@ namespace ComputerUsageAnalyzer
     class ComputerManager
     {
         protected double _POINTS;
+        protected double _TRAILOFF = 0.25;
+        protected int _LOOKBACKS = 2;
 
         ComputerManager()
         {
@@ -87,15 +102,29 @@ namespace ComputerUsageAnalyzer
             return _POINTS;
         }
 
-        public void UpdatePoints(float pts)
+        public void UpdatePoints(List<float> progvals)
         {
-            _POINTS -= pts;
-            if (_POINTS <= 0.00) CutOffUser();
+            foreach(Double pts in progvals)
+            {
+                _POINTS -= pts;
+                if (_POINTS <= 0.00) CutOffUser();
+            }
+
         }
 
         private static void CutOffUser()
         {
             System.Diagnostics.Process.Start("shutdown", "/l /f");
+        }
+
+        private static void KillProcess(Process process)
+        {
+            process.Kill();
+        }
+
+        public int getLoopbacks()
+        {
+            return _LOOKBACKS;
         }
 
     }
