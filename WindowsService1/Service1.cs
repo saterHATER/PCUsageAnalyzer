@@ -49,11 +49,11 @@ namespace ComputerUsageAnalyzer
         System.Timers.Timer _oTimer = null;
         private static int _interval = 10000;
         private HistoryStorage _appCollector;
-        public ComputerManager _PolicyPusher;
+        private ComputerManager _PolicyPusher;
 
         public void Start(HistoryStorage hs)
         {
-            ComputerManager _PolicyPusher = new ComputerManager();
+            _PolicyPusher = new ComputerManager();
             _oTimer = new System.Timers.Timer(_interval);
             _oTimer.AutoReset = true;
             _oTimer.Enabled = true;
@@ -66,10 +66,17 @@ namespace ComputerUsageAnalyzer
         {
             List<String> progList = new List<String>();
             progList = _appCollector.sample();
+            double diminish = _PolicyPusher.getDimishVal();
             foreach (String prog in progList)
             {
-                Console.Write(prog + " ");
-                Console.WriteLine(_appCollector.getPenalty(prog, 0, DateTime.Now));
+                double initVal = _appCollector.getPenalty(prog, 0, DateTime.Now);
+                double tot4prog = 0.0;
+                for (int j = 0; j < _PolicyPusher.getLoopbacks(); j++)
+                {
+                    double vall = Math.Pow(diminish, j);
+                    tot4prog += (vall * initVal);
+                }
+                Console.WriteLine(prog + " " + tot4prog);
             }
         }
 
@@ -87,11 +94,11 @@ namespace ComputerUsageAnalyzer
 
     class ComputerManager
     {
-        protected double _POINTS;
-        protected double _TRAILOFF = 0.25;
-        protected int _LOOKBACKS = 2;
+        private double _POINTS;
+        private double _TRAILOFF = .4;
+        private int _LOOKBACKS = 5;
 
-        ComputerManager()
+        public ComputerManager()
         {
             double _POINTS = new double();
             _POINTS = 0.00;
@@ -125,6 +132,11 @@ namespace ComputerUsageAnalyzer
         public int getLoopbacks()
         {
             return _LOOKBACKS;
+        }
+
+        public double getDimishVal()
+        {
+            return _TRAILOFF;
         }
 
     }
