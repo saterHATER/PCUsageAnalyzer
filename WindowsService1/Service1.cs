@@ -66,10 +66,15 @@ namespace ComputerUsageAnalyzer
         {
             List<String> progList = new List<String>();
             progList = _appCollector.sample();
+            processPenalties(progList);
+        }
+
+        public void processPenalties(List<String> Programs)
+        {
             double diminish = _PolicyPusher.getDimishVal();         //this is a --> x*a^(n)
             int loopback = _PolicyPusher.getLoopbacks();            //this is n --> x*a^(n)
             double totalPenalty = 0.0;
-            foreach (String prog in progList)
+            foreach (String prog in Programs)
             {
                 double initVal = _appCollector.getPenalty(prog, 0, DateTime.Now);
                 double tot4prog = 0.0;
@@ -81,14 +86,10 @@ namespace ComputerUsageAnalyzer
                 Console.WriteLine(prog + " " + tot4prog);
                 totalPenalty += tot4prog;
             }
+            totalPenalty = 1.0 - totalPenalty;
             Console.WriteLine("\nTotal Penalties for this moment: {0}", totalPenalty);
-            
-            Console.WriteLine("\n");
-        }
-
-        public void processPenalties(List<String> Programs)
-        {
-            
+            _PolicyPusher.RecievePoints(totalPenalty);
+            Console.WriteLine("New point value: {0}\n", _PolicyPusher.GetPoints());            
         }
 
         public void closeUp()
@@ -106,8 +107,7 @@ namespace ComputerUsageAnalyzer
 
         public ComputerManager()
         {
-            double _POINTS = new double();
-            _POINTS = 0.00;
+            _POINTS = 1.00;
         }
 
         public double GetPoints()
@@ -117,7 +117,7 @@ namespace ComputerUsageAnalyzer
 
         public void RecievePoints(double points)
         {
-            _POINTS -= points;
+            _POINTS *= points;
         }
 
         public void UpdatePoints(List<float> progvals)
