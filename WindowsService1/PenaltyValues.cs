@@ -13,7 +13,7 @@ namespace ComputerUsageAnalyzer
         private static DataTable _PenaltyWeek;
         private static char _esep = ' ';
         private static char _vsep = '#';
-        private static double _graceVal = 1.0;
+        private static double _graceVal = 0.0;
 
         public PenaltyValues()
         {
@@ -29,6 +29,10 @@ namespace ComputerUsageAnalyzer
             _PenaltyWeek.Columns.Add("Saturday", typeof(String));
 
             _PenaltyWeek.TableName = "Penalties_" + Environment.UserName.ToString();
+
+            _graceVal = 1.0;
+            AddNewProgram("_GraceVal_");
+            _graceVal = 0.0;
         }
 
         public void AddNewProgram(String program)

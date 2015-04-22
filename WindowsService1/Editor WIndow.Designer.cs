@@ -61,7 +61,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.StartTimeInput.Location = new System.Drawing.Point(110, 132);
             this.StartTimeInput.Name = "StartTimeInput";
-            this.StartTimeInput.Size = new System.Drawing.Size(237, 20);
+            this.StartTimeInput.Size = new System.Drawing.Size(209, 20);
             this.StartTimeInput.TabIndex = 0;
             this.StartTimeInput.Text = "HH:MM (24 hr mode)";
             // 
@@ -72,7 +72,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.EndTimeInput.Location = new System.Drawing.Point(110, 171);
             this.EndTimeInput.Name = "EndTimeInput";
-            this.EndTimeInput.Size = new System.Drawing.Size(240, 20);
+            this.EndTimeInput.Size = new System.Drawing.Size(209, 20);
             this.EndTimeInput.TabIndex = 9;
             this.EndTimeInput.Text = "HH:MM (24 hr mode)";
             // 
@@ -129,7 +129,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PenaltyValueInput.Location = new System.Drawing.Point(111, 210);
             this.PenaltyValueInput.Name = "PenaltyValueInput";
-            this.PenaltyValueInput.Size = new System.Drawing.Size(239, 20);
+            this.PenaltyValueInput.Size = new System.Drawing.Size(208, 20);
             this.PenaltyValueInput.TabIndex = 13;
             this.PenaltyValueInput.Text = "#.###";
             // 
@@ -140,7 +140,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Location = new System.Drawing.Point(111, 237);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(239, 37);
+            this.button1.Size = new System.Drawing.Size(208, 88);
             this.button1.TabIndex = 16;
             this.button1.Text = "Save Penalty!";
             this.button1.UseVisualStyleBackColor = true;
@@ -154,7 +154,7 @@
             this.ProgramChooser.FormattingEnabled = true;
             this.ProgramChooser.Location = new System.Drawing.Point(109, 0);
             this.ProgramChooser.Name = "ProgramChooser";
-            this.ProgramChooser.Size = new System.Drawing.Size(241, 21);
+            this.ProgramChooser.Size = new System.Drawing.Size(210, 21);
             this.ProgramChooser.TabIndex = 17;
             this.ProgramChooser.Text = "Choose Program";
             this.ProgramChooser.SelectedIndexChanged += new System.EventHandler(this.ProgramChooser_SelectedIndexChanged);
@@ -172,9 +172,9 @@
             "Thursday",
             "Friday",
             "Saturday"});
-            this.DayChooser.Location = new System.Drawing.Point(2, 161);
+            this.DayChooser.Location = new System.Drawing.Point(0, 171);
             this.DayChooser.Name = "DayChooser";
-            this.DayChooser.Size = new System.Drawing.Size(103, 109);
+            this.DayChooser.Size = new System.Drawing.Size(103, 154);
             this.DayChooser.TabIndex = 19;
             // 
             // UserChooser
@@ -207,7 +207,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ProcessNameInput.Location = new System.Drawing.Point(110, 93);
             this.ProcessNameInput.Name = "ProcessNameInput";
-            this.ProcessNameInput.Size = new System.Drawing.Size(237, 20);
+            this.ProcessNameInput.Size = new System.Drawing.Size(209, 20);
             this.ProcessNameInput.TabIndex = 21;
             this.ProcessNameInput.Tag = "";
             this.ProcessNameInput.Text = "Process Name";
@@ -221,7 +221,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(421, 351);
+            this.tabControl1.Size = new System.Drawing.Size(327, 351);
             this.tabControl1.TabIndex = 2;
             // 
             // UsageViewerTab
@@ -231,7 +231,7 @@
             this.UsageViewerTab.Location = new System.Drawing.Point(4, 22);
             this.UsageViewerTab.Name = "UsageViewerTab";
             this.UsageViewerTab.Padding = new System.Windows.Forms.Padding(3);
-            this.UsageViewerTab.Size = new System.Drawing.Size(413, 325);
+            this.UsageViewerTab.Size = new System.Drawing.Size(319, 325);
             this.UsageViewerTab.TabIndex = 1;
             this.UsageViewerTab.Text = "View Usage";
             this.UsageViewerTab.UseVisualStyleBackColor = true;
@@ -242,7 +242,7 @@
             this.TableChooser.FormattingEnabled = true;
             this.TableChooser.Location = new System.Drawing.Point(3, 3);
             this.TableChooser.Name = "TableChooser";
-            this.TableChooser.Size = new System.Drawing.Size(407, 21);
+            this.TableChooser.Size = new System.Drawing.Size(313, 21);
             this.TableChooser.TabIndex = 1;
             this.TableChooser.SelectedIndexChanged += new System.EventHandler(this.TableChooser_SelectedIndexChanged);
             this.TableChooser.SelectedValueChanged += new System.EventHandler(this.UserChooser_SelectedIndexChanged);
@@ -258,7 +258,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(3, 3);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(407, 319);
+            this.dataGridView1.Size = new System.Drawing.Size(313, 319);
             this.dataGridView1.TabIndex = 0;
             // 
             // PenaltyCreatorTab
@@ -278,7 +278,7 @@
             this.PenaltyCreatorTab.Location = new System.Drawing.Point(4, 22);
             this.PenaltyCreatorTab.Name = "PenaltyCreatorTab";
             this.PenaltyCreatorTab.Padding = new System.Windows.Forms.Padding(3);
-            this.PenaltyCreatorTab.Size = new System.Drawing.Size(413, 325);
+            this.PenaltyCreatorTab.Size = new System.Drawing.Size(319, 325);
             this.PenaltyCreatorTab.TabIndex = 0;
             this.PenaltyCreatorTab.Text = "Add Penalty";
             this.PenaltyCreatorTab.UseVisualStyleBackColor = true;
@@ -287,7 +287,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(421, 351);
+            this.ClientSize = new System.Drawing.Size(327, 351);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "PCMonitorWindow";
