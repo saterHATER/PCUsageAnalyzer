@@ -91,7 +91,7 @@ namespace ComputerUsageAnalyzer
         protected double _TRAILOFF = 0.25;
         protected int _LOOKBACKS = 2;
 
-        ComputerManager()
+        public ComputerManager()
         {
             double _POINTS = new double();
             _POINTS = 0.00;
